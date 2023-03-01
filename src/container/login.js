@@ -10,9 +10,9 @@ import Drawer from "@mui/material/Drawer";
 
 export default function loginContainer() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  
+
   return (
-    <main>
+    <main className="Password-reset">
       <Drawer
         anchor={"bottom"}
         open={drawerOpen}

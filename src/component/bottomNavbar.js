@@ -13,7 +13,17 @@ export default function IconTabs() {
   };
 
   return (
-    <Tabs value={value} onChange={handleChange} sx={{ width: "100vw" }}>
+    <Tabs
+      value={value}
+      onChange={handleChange}
+      sx={{
+        width: "100vw",
+        position: "fixed",
+        bottom: "0",
+        background: "white",
+      }}
+      className="bottom-navbar"
+    >
       <Tab
         icon={<PhoneIcon />}
         aria-label="phone"

@@ -1,11 +1,9 @@
 import Head from "next/head";
-import Container from "../../src/container/feed";
+import Container from "../../src/container/academics";
 import BottomNavbar from "../../src/component/bottomNavbar";
 import TopNavbar from "../../src/component/topNavbar";
 
-
-
-export default function FeedPage() {
+export default function AcademicsPage() {
   return (
     <>
       <Head>

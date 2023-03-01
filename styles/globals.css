@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -85,7 +87,7 @@ body {
   overflow-x: hidden;
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -93,7 +95,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 a {
   color: inherit;
@@ -110,17 +112,26 @@ body {
   height: 100vh;
 }
 
-.MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
+.Password-reset .MuiPaper-root.MuiPaper-elevation.MuiDrawer-paper {
   border-radius: 32px 32px 0 0;
 }
 
-span.MuiTabs-indicator {
-  height: 32px;
+.bottom-navbar span.MuiTabs-indicator {
+  /* height: 32px;
   background: var(--primary-glow);
   border-radius: 1rem;
-  margin-bottom: 8px;
+  margin-bottom: 8px; */
+  display: none;
 }
 
 button.MuiButtonBase-root.MuiTab-root {
   z-index: 1;
+}
+
+* {
+  font-family: "Rubik" !important;
+}
+
+.bottom-navbar button.MuiButtonBase-root.MuiTab-root.Mui-selected {
+  scale: 1.25;
 }
