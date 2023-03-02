@@ -188,7 +188,7 @@ function DrawerAppBar(props) {
           top: "0",
           zIndex: !searchOpen ? "0" : "99999",
           transition:
-            "opacity 500ms cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s, z-index 500ms ease 0s",
+            "opacity 350ms cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s, z-index 350ms ease 0s",
           opacity: !searchOpen ? "0" : "1",
           display: "flex",
           alignItems: "center",
