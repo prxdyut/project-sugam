@@ -135,3 +135,10 @@ button.MuiButtonBase-root.MuiTab-root {
 .bottom-navbar button.MuiButtonBase-root.MuiTab-root.Mui-selected {
   scale: 1.25;
 }
+
+.dotsBreak-60vw{
+      overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 60vw;
+}

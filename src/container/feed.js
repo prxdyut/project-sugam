@@ -35,7 +35,7 @@ export default function feedContainer() {
           width: "100%",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", py: 1 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box>
             <FormControlLabel
               control={<Checkbox defaultChecked />}

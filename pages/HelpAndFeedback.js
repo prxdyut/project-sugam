@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Container from "../../src/container/feed";
-import BottomNavbar from "../../src/component/bottomNavbar";
-import TopNavbar from "../../src/component/topNavbar";
+import Container from "../src/container/helpAndFeedback";
 
-export default function FeedPage() {
+export default function LoginPage() {
   return (
     <>
       <Head>
@@ -12,9 +10,7 @@ export default function FeedPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopNavbar />
       <Container />
-      <BottomNavbar />
     </>
   );
 }

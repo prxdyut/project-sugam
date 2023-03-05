@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Container from "../../src/container/academics";
-import BottomNavbar from "../../src/component/bottomNavbar";
-import TopNavbar from "../../src/component/topNavbar";
+import Container from "../../../src/container/academics/index";
+import BottomNavbar from "../../../src/component/bottomNavbar";
+import TopNavbar from "../../../src/component/topNavbar";
 
 export default function AcademicsPage() {
   return (
@@ -13,7 +13,7 @@ export default function AcademicsPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopNavbar />
-      <Container />
+      <Container page={1} />
       <BottomNavbar />
     </>
   );

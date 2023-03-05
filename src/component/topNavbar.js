@@ -176,7 +176,6 @@ function DrawerAppBar(props) {
         </Drawer>
       </Box>
 
-      <Box sx={{ height: "56px", width: "100%" }} />
       {/* TODO: set display and padding by React State Variable in Realtime on click */}
       <div
         id="1"

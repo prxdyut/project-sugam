@@ -18,6 +18,7 @@ import Badge from "@mui/material/Badge";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
+import Switch from "@mui/material/Switch";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -33,10 +34,15 @@ import Tab from "@mui/material/Tab";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import GetSubject from "../function/getSubject";
 import GetIcon from "../function/getIcon";
+import DownloadIcon from "@mui/icons-material/Download";
 
-function Assignment({ subject, date, status }) {
+function File({ title, by, size }) {
   return (
-    <ListItem divider button secondaryAction={<ChevronRightIcon />}>
+    <ListItem
+      divider
+      button
+      secondaryAction={<Typography fontSize={12}>{size}</Typography>}
+    >
       <ListItemAvatar>
         <Badge
           anchorOrigin={{
@@ -49,79 +55,20 @@ function Assignment({ subject, date, status }) {
           variant="dot"
         >
           <Avatar sx={{ p: 1.5 }}>
-            <GetIcon value={3} color="white" />
+            <DownloadIcon />
           </Avatar>
         </Badge>
       </ListItemAvatar>
       <ListItemText
-        primary="New Maths Assignment"
-        secondary={"Due by 19 Jan 2023"}
+        primary={<div className="dotsBreak-60vw">{title}</div>}
+        secondary={by}
       />
     </ListItem>
   );
 }
 
-function AllAssignments() {
+export default function TestsContainer() {
   const subject = 3;
-  return (
-    <Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", py: 1 }}>
-        <Box>
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Pending"
-          />
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Expired"
-          />
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Done"
-          />
-        </Box>
-        <IconButton color="inherit" aria-label="open drawer">
-          <FilterListIcon />
-        </IconButton>
-      </Box>
-      <Box>
-        <List sx={{ mx: -2 }}>
-          <ListItem divider button secondaryAction={<ChevronRightIcon />}>
-            <ListItemAvatar>
-              <Badge
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                color="secondary"
-                badgeContent=" "
-                overlap="circular"
-                variant="dot"
-              >
-                <Avatar sx={{ p: 1.5 }}>
-            <GetIcon value={subject} color="white" />
-                </Avatar>
-              </Badge>
-            </ListItemAvatar>
-            <ListItemText
-              primary="New Maths Assignment"
-              secondary={"Due by 19 Jan 2023"}
-            />
-          </ListItem>
-        </List>
-        <GetSubject value={subject} />
-      </Box>
-    </Box>
-  );
-}
-
-export default function academicsContainer() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <main>
       <Container
@@ -130,15 +77,23 @@ export default function academicsContainer() {
           width: "100%",
         }}
       >
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Assignments" />
-            <Tab label="Doubts" />
-            <Tab label="Tests" />
-          </Tabs>
+        <Box>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box></Box>
+            <IconButton color="inherit" aria-label="open drawer">
+              <FilterListIcon />
+            </IconButton>
+          </Box>
+          <Box>
+            <List sx={{ mx: -2 }}>
+              <File
+                title={"Binomial Theorem Formula.pdf"}
+                size={"2.1 MB"}
+                by={"Pradyut Das"}
+              />
+            </List>
+          </Box>
         </Box>
-
-        {value == 0 ? <AllAssignments /> : null}
       </Container>
     </main>
   );

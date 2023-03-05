@@ -1,7 +1,5 @@
 export default function ReturnSubject({ value }) {
-  return (
-    <>
-      {(() => {
+  return (() => {
         switch (value) {
           case 0:
             return "English";
@@ -20,7 +18,5 @@ export default function ReturnSubject({ value }) {
           default:
             return null;
         }
-      })()}
-    </>
-  );
+      })();
 }

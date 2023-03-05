@@ -1,9 +1,9 @@
 import Head from "next/head";
-import Container from "../../src/container/feed";
-import BottomNavbar from "../../src/component/bottomNavbar";
-import TopNavbar from "../../src/component/topNavbar";
+import Container from "../../../src/container/academics/index";
+import BottomNavbar from "../../../src/component/bottomNavbar";
+import TopNavbar from "../../../src/component/topNavbar";
 
-export default function FeedPage() {
+export default function AcademicsPage() {
   return (
     <>
       <Head>
@@ -13,7 +13,7 @@ export default function FeedPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopNavbar />
-      <Container />
+      <Container page={2} />
       <BottomNavbar />
     </>
   );
