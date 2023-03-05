@@ -56,7 +56,7 @@ const StyledFab2 = styled(Fab)({
   zIndex: 1,
   position: "fixed",
   right: "1rem",
-  transition: "bottom 500ms",
+  transition: "bottom 400ms",
   margin: "0 auto",
 });
 
@@ -98,7 +98,7 @@ console.log(router.pathname)
       >
         {showAppBar ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
       </StyledFab2>
-      <Slide direction="up" in={showAppBar} unmountOnExit>
+      <Slide direction="up" appear={false} in={showAppBar} unmountOnExit>
         <AppBar
           position="fixed"
           color="primary"
