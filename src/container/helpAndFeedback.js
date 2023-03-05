@@ -36,11 +36,16 @@ import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import dynamic from "next/dynamic";
 
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
 export default function ScheduleContainer() {
   const [value, setValue] = React.useState("");
+  const ReactQuill = React.useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -51,7 +56,7 @@ export default function ScheduleContainer() {
         { indent: "-1" },
         { indent: "+1" },
       ],
-      ["link", "image"],
+      ["link"],
       ["clean"],
     ],
   };
@@ -66,7 +71,6 @@ export default function ScheduleContainer() {
     "bullet",
     "indent",
     "link",
-    "image",
   ];
   return (
     <main>
