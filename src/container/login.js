@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 
-export default function loginContainer() {
+export default function LoginContainer() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   return (

@@ -38,7 +38,7 @@ import DoubtsContainer from "./doubts";
 import TestsContainer from "./tests";
 import { useRouter } from "next/router";
 
-export default function academicsContainer({ page }) {
+export default function AcademicsContainer({ page }) {
   const [value, setValue] = React.useState(page);
   const router = useRouter();
 
