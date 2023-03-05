@@ -49,7 +49,15 @@ export default function ScheduleContainer() {
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "align",
+        "direction",
+      ],
       [
         { list: "ordered" },
         { list: "bullet" },
@@ -57,7 +65,6 @@ export default function ScheduleContainer() {
         { indent: "+1" },
       ],
       ["link"],
-      ["clean"],
     ],
   };
   const formats = [
@@ -71,6 +78,9 @@ export default function ScheduleContainer() {
     "bullet",
     "indent",
     "link",
+    "formula",
+    "align",
+    "header",
   ];
   return (
     <main>
