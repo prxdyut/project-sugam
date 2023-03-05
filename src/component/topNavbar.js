@@ -22,14 +22,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import Popover from "@mui/material/Popover";
 
 import LinearProgress from "@mui/material/LinearProgress";
-import NextNProgress from 'nextjs-progressbar';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import NextNProgress from "nextjs-progressbar";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Fade } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
-import Link from 'next/link'
+import Link from "next/link";
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -105,90 +105,95 @@ function DrawerAppBar(props) {
           </ListItem>
         </List>
       </Popover>
-      {props.variant == 'primary' ? (<AppBar component="nav" elevation={0} >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ ml: -1 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="body1"
-            nowrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            }}
-          >
-            Search for Assignments, Resources
-          </Typography>
-          <IconButton
-            color="inherit"
-            edge="end"
-            sx={{ m: 0 }}
-            onClick={() => setSearchOpen(true)}
-          >
-            <SearchIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            edge="end"
-            // onClick={handleDrawerToggle}
-            sx={{ mr: -1 }}
-            aria-describedby={id}
-            onClick={handleClick}
-          >
-            <Avatar
-              alt="Remy Sharp"
-              src="https://mui.com/static/images/avatar/2.jpg"
-              sx={{ width: 24, height: 24 }}
-            />
-          </IconButton>
-        </Toolbar>
-      </AppBar>) : props.variant == 'secondary' ? (
-      <AppBar component="nav" elevation={0}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ ml: -1 }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography
-            variant="body1"
-            nowrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              // textOverflow: "ellipsis",
-              // whiteSpace: "nowrap",
-              // overflow: "hidden",
-            }}
-          >
-{props.variant}          </Typography>
-          <IconButton
-            color="inherit"
-            edge="end"
-            sx={{ mr: -1 }}
-            onClick={() => setSearchOpen(true)}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </Toolbar>
-        <Box>
-        </Box>
-      </AppBar>) : 'error'}
-      
+      <Toolbar sx={{mb:1}} />
+      {props.variant == "primary" ? (
+        <AppBar component="nav" elevation={0}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ ml: -1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="body1"
+              nowrap
+              component="div"
+              sx={{
+                flexGrow: 1,
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              Search for Assignments, Resources
+            </Typography>
+            <IconButton
+              color="inherit"
+              edge="end"
+              sx={{ m: 0 }}
+              onClick={() => setSearchOpen(true)}
+            >
+              <SearchIcon />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              edge="end"
+              // onClick={handleDrawerToggle}
+              sx={{ mr: -1 }}
+              aria-describedby={id}
+              onClick={handleClick}
+            >
+              <Avatar
+                alt="Remy Sharp"
+                src="https://mui.com/static/images/avatar/2.jpg"
+                sx={{ width: 24, height: 24 }}
+              />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      ) : props.variant == "secondary" ? (
+        <AppBar component="nav" elevation={0}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ ml: -1 }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography
+              variant="body1"
+              nowrap
+              component="div"
+              sx={{
+                flexGrow: 1,
+                // textOverflow: "ellipsis",
+                // whiteSpace: "nowrap",
+                // overflow: "hidden",
+              }}
+            >
+              {props.title}{" "}
+            </Typography>
+            <IconButton
+              color="inherit"
+              edge="end"
+              sx={{ mr: -1 }}
+              onClick={() => setSearchOpen(true)}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </Toolbar>
+          <Box></Box>
+        </AppBar>
+      ) : (
+        "error"
+      )}
 
       <Box component="nav">
         <Drawer
@@ -249,38 +254,39 @@ function DrawerAppBar(props) {
         </Container>
       </div> */}
       <Fade in={searchOpen}>
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "56px",
-          background: "lightgray",
-          top: "0",
-          zIndex: "99999",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Container>
-          <InputBase
-            sx={{ width: "100%" }}
-            placeholder="Search Google Maps"
-            inputProps={{ "aria-label": "search google maps" }}
-            endAdornment={
-              <Box sx={{ display: "flex" }}>
-                <IconButton
-                  type="button"
-                  sx={{ p: "10px", mr: -1 }}
-                  aria-label="cancel"
-                  onClick={() => setSearchOpen(false)}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Box>
-            }
-          />
-        </Container>
-      </div></Fade>
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "56px",
+            background: "lightgray",
+            top: "0",
+            zIndex: "99999",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Container>
+            <InputBase
+              sx={{ width: "100%" }}
+              placeholder="Search Google Maps"
+              inputProps={{ "aria-label": "search google maps" }}
+              endAdornment={
+                <Box sx={{ display: "flex" }}>
+                  <IconButton
+                    type="button"
+                    sx={{ p: "10px", mr: -1 }}
+                    aria-label="cancel"
+                    onClick={() => setSearchOpen(false)}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              }
+            />
+          </Container>
+        </div>
+      </Fade>
     </Box>
   );
 }
