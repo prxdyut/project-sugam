@@ -40,6 +40,8 @@ import QuestionMarkRoundedIcon from "@mui/icons-material/QuestionMarkRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 const StyledFab1 = styled(Fab)({
   position: "relative",
@@ -58,17 +60,21 @@ const StyledFab2 = styled(Fab)({
   margin: "0 auto",
 });
 
-function MenuItem({ active, children }) {
+function MenuItem({ page, children }) {
+  const router = useRouter();
+  const pageActive = router.pathname == (page.split('../..'))[1]
+
   return (
     <>
-      {active ? (
+      {pageActive ? (
         <StyledFab1 color="secondary" aria-label="add">
           {children}
         </StyledFab1>
       ) : (
+        <Link href={page}>
         <IconButton color="inherit" aria-label="open drawer">
           {children}
-        </IconButton>
+        </IconButton></Link>
       )}
     </>
   );
@@ -76,6 +82,8 @@ function MenuItem({ active, children }) {
 
 export default function IconTabs() {
   const [showAppBar, setShowAppBar] = React.useState(true);
+const router = useRouter();
+console.log(router.pathname)
 
   return (
     <>
@@ -90,34 +98,34 @@ export default function IconTabs() {
       >
         {showAppBar ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
       </StyledFab2>
-      <Slide direction="up" in={showAppBar} mountOnEnter unmountOnExit>
+      <Slide direction="up" in={showAppBar} unmountOnExit>
         <AppBar
           position="fixed"
           color="primary"
           sx={{ top: "auto", bottom: 0 }}
         >
           <Toolbar>
-            <MenuItem>
+            <MenuItem page='../../app/schedule'>
               <EventNoteRoundedIcon />
             </MenuItem>
-            <MenuItem>
+            <MenuItem page='../../app/academics/assignments'>
               <ListAltRoundedIcon />
             </MenuItem>
-            <MenuItem active>
+            <MenuItem page='../../app/academics/tests'>
               <RuleRoundedIcon />
             </MenuItem>
-            <MenuItem>
+            <MenuItem page='../../app/academics/doubts'>
               <QuestionMarkRoundedIcon />
             </MenuItem>
-            <MenuItem>
+            <MenuItem page='../../app/library'>
               <FileDownloadRoundedIcon />
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
-            <MenuItem>
+            <MenuItem page='#'>
               <NotificationsRoundedIcon />
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem page='#'>
               <SettingsIcon />
             </MenuItem>
           </Toolbar>

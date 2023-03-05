@@ -21,8 +21,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import Popover from "@mui/material/Popover";
 
+import LinearProgress from "@mui/material/LinearProgress";
+import NextNProgress from 'nextjs-progressbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Fade } from "@mui/material";
+
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
+import Link from 'next/link'
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -98,7 +105,7 @@ function DrawerAppBar(props) {
           </ListItem>
         </List>
       </Popover>
-      <AppBar component="nav" elevation={0}>
+      {props.variant == 'primary' ? (<AppBar component="nav" elevation={0} >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -143,18 +150,46 @@ function DrawerAppBar(props) {
               src="https://mui.com/static/images/avatar/2.jpg"
               sx={{ width: 24, height: 24 }}
             />
-            {/* <MenuIcon /> */}
           </IconButton>
-
-          {/* <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
-          </Box> */}
         </Toolbar>
-      </AppBar>
+      </AppBar>) : props.variant == 'secondary' ? (
+      <AppBar component="nav" elevation={0}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ ml: -1 }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography
+            variant="body1"
+            nowrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              // textOverflow: "ellipsis",
+              // whiteSpace: "nowrap",
+              // overflow: "hidden",
+            }}
+          >
+{props.variant}          </Typography>
+          <IconButton
+            color="inherit"
+            edge="end"
+            sx={{ mr: -1 }}
+            onClick={() => setSearchOpen(true)}
+          >
+            <MoreVertIcon />
+          </IconButton>
+        </Toolbar>
+        <Box>
+        </Box>
+      </AppBar>) : 'error'}
+      
+
       <Box component="nav">
         <Drawer
           container={container}
@@ -176,8 +211,7 @@ function DrawerAppBar(props) {
         </Drawer>
       </Box>
 
-      {/* TODO: set display and padding by React State Variable in Realtime on click */}
-      <div
+      {/* <div
         id="1"
         style={{
           position: "fixed",
@@ -201,16 +235,9 @@ function DrawerAppBar(props) {
             inputProps={{ "aria-label": "search google maps" }}
             endAdornment={
               <Box sx={{ display: "flex" }}>
-                {/* <IconButton
-                  type="button"
-                  sx={{ p: "10px" }}
-                  aria-label="search"
-                >
-                  <SearchIcon />
-                </IconButton> */}
                 <IconButton
                   type="button"
-                  sx={{ p: "10px" }}
+                  sx={{ p: "10px", mr: -1 }}
                   aria-label="cancel"
                   onClick={() => setSearchOpen(false)}
                 >
@@ -220,7 +247,40 @@ function DrawerAppBar(props) {
             }
           />
         </Container>
-      </div>
+      </div> */}
+      <Fade in={searchOpen}>
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "56px",
+          background: "lightgray",
+          top: "0",
+          zIndex: "99999",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Container>
+          <InputBase
+            sx={{ width: "100%" }}
+            placeholder="Search Google Maps"
+            inputProps={{ "aria-label": "search google maps" }}
+            endAdornment={
+              <Box sx={{ display: "flex" }}>
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px", mr: -1 }}
+                  aria-label="cancel"
+                  onClick={() => setSearchOpen(false)}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+            }
+          />
+        </Container>
+      </div></Fade>
     </Box>
   );
 }
