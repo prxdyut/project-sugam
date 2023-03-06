@@ -20,11 +20,13 @@
     "dayjs": "^1.11.7",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "html-react-parser": "^3.0.11",
     "moment": "^2.29.4",
     "next": "13.1.6",
     "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hydration-provider": "^1.0.2",
     "react-quill": "^2.0.0",
     "react-use-scroll-direction": "^0.1.0"
   }

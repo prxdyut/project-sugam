@@ -38,33 +38,175 @@ import DoubtsContainer from "./doubts";
 import TestsContainer from "./tests";
 import { useRouter } from "next/router";
 import { Collapse, Divider, ImageList, ImageListItem } from "@mui/material";
-import { ExpandMore, IceSkatingTwoTone, MoreVertSharp } from "@mui/icons-material";
+import {
+  ExpandMore,
+  IceSkatingTwoTone,
+  MoreVertSharp,
+} from "@mui/icons-material";
+import NoSsr from "@mui/base/NoSsr";
 
-// const itemData = [
-//   {
-//     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-//     title: "Breakfast",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-//     title: "Burger",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-//     title: "Camera",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-//     title: "Coffee",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-//     title: "Hats",
-//   },
-// ];
+import dynamic from "next/dynamic";
+
+import "react-quill/dist/quill.bubble.css";
+import parse from "html-react-parser";
+import IgnoreHydrationError from "../../function/ignoreHydrationError";
+
+function Comment({ doubt }) {
+  const [showReplies, setShowReplies] = React.useState(false);
+
+  return (
+    <>
+      <ListItem>
+        <ListItemText
+          primary={doubt.by}
+          secondary={
+            <>
+              {"— "}
+              <IgnoreHydrationError>
+                {parse(doubt.content)}
+              </IgnoreHydrationError>
+            </>
+          }
+        />
+      </ListItem>
+      <Divider
+        variant={showReplies ? "inset" : ""}
+        component="li"
+        textAlign="right"
+        sx={{ my: -1, transition: "margin 250ms" }}
+      >
+        <Button
+          onClick={
+            doubt.replies.length != 0
+              ? () => setShowReplies(!showReplies)
+              : null
+          }
+        >
+          {"Replies ( " + doubt.replies.length + " ) "}
+          <ExpandMore
+            sx={{
+              transition: "rotate 250ms",
+              rotate: showReplies ? "180deg" : "0deg",
+            }}
+          />
+        </Button>
+      </Divider>
+      <Collapse in={showReplies} appear component="li" divider>
+        <List>
+          {doubt.replies.map((reply, index) => (
+            <React.Fragment key={index}>
+              <ListItem>
+                <ListItemAvatar />
+                <ListItemText
+                  primary={reply.by}
+                  secondary={
+                    <React.Fragment>{"— " + reply.content} </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </React.Fragment>
+          ))}
+        </List>
+      </Collapse>
+    </>
+  );
+}
 
 export default function DoubtsViewContainer() {
-  const [repliesCollapse, setRepliesCollapse] = React.useState(true)
+  const [value, setValue] = React.useState("");
+  const ReactQuill = React.useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
+  const doubts = [
+    {
+      id: 1,
+      by: "Pradyut",
+      content:
+        "<h1>Hey ! </h1><p>its been a long time since we've last met</p>",
+      replies: [
+        {
+          by: "Pradyut",
+          to: "Pradyut",
+          content:
+            "Yeah youre right, Prime minister of india is narendra modi.",
+        },
+        {
+          by: "Pradyut",
+          to: "Pradyut",
+          content:
+            "Yeah youre right, Prime minister of india is narendra modi.",
+        },
+        {
+          by: "Pradyut",
+          to: "Pradyut",
+          content:
+            "Yeah youre right, Prime minister of india is narendra modi.",
+        },
+      ],
+    },
+    {
+      id: 2,
+      by: "Vishal",
+      content: "National bird of india is PeaCock.",
+      replies: [],
+    },
+    {
+      id: 3,
+      by: "Ujwal",
+      content: value,
+      replies: [
+        {
+          by: "Pradyut",
+          to: "Pradyut",
+          content:
+            "Yeah youre right, Prime minister of india is narendra modi.",
+        },
+        {
+          by: "Pradyut",
+          to: "Pradyut",
+          content:
+            "Yeah youre right, Prime minister of india is narendra modi.",
+        },
+      ],
+    },
+  ];
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      [
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "align",
+        "direction",
+      ],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image", "video"],
+    ],
+  };
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "formula",
+    "align",
+    "header",
+    "link",
+    "image",
+  ];
+
   return (
     <main>
       <Container
@@ -75,143 +217,28 @@ export default function DoubtsViewContainer() {
       >
         <Box sx={{ mx: -2 }}>
           <List sx={{ width: "100%" }}>
-            <Divider component="li" />
-            <ListItem>
-              {/* <ListItemAvatar>
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-              </ListItemAvatar> */}
-              <ListItemText
-                primary="Oui Oui"
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      Sandra Adams
-                    </Typography>
-                    {" — Do you have Paris recommendations? Have you ever…"}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider
-              variant={repliesCollapse ? "inset" : ""}
-              component="li"
-              textAlign="right"
-              sx={{ my: -1 }}
-            >
-              <Button onClick={() => setRepliesCollapse(!repliesCollapse)}>{"Replies (21) "}<ExpandMore /></Button>
-            </Divider>
-            <Collapse in={repliesCollapse} appear component='li'>
-            <List>
-              <ListItem>
-                <ListItemAvatar></ListItemAvatar>
-                <ListItemText
-                  primary="Oui Oui"
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Sandra Adams
-                      </Typography>
-                      {" — Do you have Paris recommendations? Have you ever…"}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              <ListItem>
-                <ListItemAvatar></ListItemAvatar>
-                <ListItemText
-                  primary="Oui Oui"
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Sandra Adams
-                      </Typography>
-                      {" — Do you have Paris recommendations? Have you ever…"}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              <ListItem>
-                <ListItemAvatar></ListItemAvatar>
-                <ListItemText
-                  primary="Oui Oui"
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Sandra Adams
-                      </Typography>
-                      {" — Do you have Paris recommendations? Have you ever…"}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              <ListItem>
-                <ListItemAvatar></ListItemAvatar>
-                <ListItemText
-                  primary="Oui Oui"
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Sandra Adams
-                      </Typography>
-                      {" — Do you have Paris recommendations? Have you ever…"}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-            </List></Collapse>
-            <Divider component="li" />
-            <ListItem>
-              <ListItemText
-                primary="Oui Oui"
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      Sandra Adams
-                    </Typography>
-                    {
-                      " — Do you have Paris recommendations? Have you ever… Do you have Paris "
-                    }
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider component="li" textAlign="right" sx={{ my: -2 }}>
-              <Button>{"Replies (21) "}</Button>
-            </Divider>
+            {doubts.map((doubt, index) => (
+              <React.Fragment key={index}>
+                <Comment doubt={doubt} />
+              </React.Fragment>
+            ))}
           </List>
+        </Box>
+        <Box>
+          <ReactQuill
+            theme="bubble"
+            value={value}
+            onChange={setValue}
+            modules={modules}
+            formats={formats}
+          />
+          <Button
+            onClick={() =>
+              document.getElementsByClassName("ql-image")[0].click()
+            }
+          >
+            Insert Image
+          </Button>
         </Box>
       </Container>
     </main>

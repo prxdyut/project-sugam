@@ -136,9 +136,13 @@ button.MuiButtonBase-root.MuiTab-root {
   scale: 1.25;
 }
 
-.dotsBreak-60vw{
-      overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 60vw;
+.dotsBreak-60vw {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 60vw;
+}
+
+.quill img {
+  width: 50%;
 }
