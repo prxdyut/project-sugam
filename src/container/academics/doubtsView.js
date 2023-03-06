@@ -37,32 +37,34 @@ import AssignmentsContainer from "./assignments";
 import DoubtsContainer from "./doubts";
 import TestsContainer from "./tests";
 import { useRouter } from "next/router";
-import { Divider, ImageList, ImageListItem } from "@mui/material";
+import { Collapse, Divider, ImageList, ImageListItem } from "@mui/material";
+import { ExpandMore, IceSkatingTwoTone, MoreVertSharp } from "@mui/icons-material";
 
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-  },
-];
+// const itemData = [
+//   {
+//     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+//     title: "Breakfast",
+//   },
+//   {
+//     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+//     title: "Burger",
+//   },
+//   {
+//     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+//     title: "Camera",
+//   },
+//   {
+//     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+//     title: "Coffee",
+//   },
+//   {
+//     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+//     title: "Hats",
+//   },
+// ];
 
 export default function DoubtsViewContainer() {
+  const [repliesCollapse, setRepliesCollapse] = React.useState(true)
   return (
     <main>
       <Container
@@ -71,47 +73,145 @@ export default function DoubtsViewContainer() {
           width: "100%",
         }}
       >
-        <Box sx={{ my: 1 }}>
-          <Typography variant="h4">Maths</Typography>
-          <Typography variant="h6">Quadratic Equation</Typography>
-          <Typography variant="body1">19 June 2023</Typography>
-        </Box>
-        <Box sx={{ my: 1 }}>
-          <Divider>
-            <Typography variant="overline">Doubt</Typography>
-          </Divider>
-          <Box>
-            <Typography>
-              Write the quadratic equation in standard form, ax2 + bx + c = 0.{" "}
-              <br /> Identify the values of a, b, c. Write the Quadratic
-              Formula. <br /> Then substitute in the values of a, b, c.
-              <br />
-              Simplify.
-              <br />
-              Check the solutions.
-            </Typography>
-            <ImageList
-              sx={{ width: "100%", height: "max-content", mt: 1 }}
-              cols={3}
-              rowHeight={164}
+        <Box sx={{ mx: -2 }}>
+          <List sx={{ width: "100%" }}>
+            <Divider component="li" />
+            <ListItem>
+              {/* <ListItemAvatar>
+                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+              </ListItemAvatar> */}
+              <ListItemText
+                primary="Oui Oui"
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Sandra Adams
+                    </Typography>
+                    {" — Do you have Paris recommendations? Have you ever…"}
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider
+              variant={repliesCollapse ? "inset" : ""}
+              component="li"
+              textAlign="right"
+              sx={{ my: -1 }}
             >
-              {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                  <img
-                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </Box>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-            <Button variant="outlined" fullWidth>
-                Submit
-                </Button>
+              <Button onClick={() => setRepliesCollapse(!repliesCollapse)}>{"Replies (21) "}<ExpandMore /></Button>
+            </Divider>
+            <Collapse in={repliesCollapse} appear component='li'>
+            <List>
+              <ListItem>
+                <ListItemAvatar></ListItemAvatar>
+                <ListItemText
+                  primary="Oui Oui"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Sandra Adams
+                      </Typography>
+                      {" — Do you have Paris recommendations? Have you ever…"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              <ListItem>
+                <ListItemAvatar></ListItemAvatar>
+                <ListItemText
+                  primary="Oui Oui"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Sandra Adams
+                      </Typography>
+                      {" — Do you have Paris recommendations? Have you ever…"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              <ListItem>
+                <ListItemAvatar></ListItemAvatar>
+                <ListItemText
+                  primary="Oui Oui"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Sandra Adams
+                      </Typography>
+                      {" — Do you have Paris recommendations? Have you ever…"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              <ListItem>
+                <ListItemAvatar></ListItemAvatar>
+                <ListItemText
+                  primary="Oui Oui"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Sandra Adams
+                      </Typography>
+                      {" — Do you have Paris recommendations? Have you ever…"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </List></Collapse>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText
+                primary="Oui Oui"
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Sandra Adams
+                    </Typography>
+                    {
+                      " — Do you have Paris recommendations? Have you ever… Do you have Paris "
+                    }
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider component="li" textAlign="right" sx={{ my: -2 }}>
+              <Button>{"Replies (21) "}</Button>
+            </Divider>
+          </List>
         </Box>
       </Container>
     </main>
