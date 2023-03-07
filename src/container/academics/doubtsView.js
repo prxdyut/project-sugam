@@ -30,6 +30,8 @@ import EnglishLogo from "../../icon/subject/english";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Toolbar from "@mui/material/Toolbar";
+import Chip from "@mui/material/Chip";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import GetSubject from "../../function/getSubject";
 import GetIcon from "../../function/getIcon";
@@ -43,8 +45,6 @@ import {
   IceSkatingTwoTone,
   MoreVertSharp,
 } from "@mui/icons-material";
-import NoSsr from "@mui/base/NoSsr";
-
 import dynamic from "next/dynamic";
 
 import "react-quill/dist/quill.bubble.css";
@@ -58,11 +58,12 @@ function Comment({ doubt }) {
     <>
       <ListItem>
         <ListItemText
+          className="comment-content"
           primary={doubt.by}
           secondary={
             <>
-              {"— "}
               <IgnoreHydrationError>
+                {"— "}
                 {parse(doubt.content)}
               </IgnoreHydrationError>
             </>
@@ -98,9 +99,15 @@ function Comment({ doubt }) {
               <ListItem>
                 <ListItemAvatar />
                 <ListItemText
+                  className="comment-content"
                   primary={reply.by}
                   secondary={
-                    <React.Fragment>{"— " + reply.content} </React.Fragment>
+                    <>
+                      <IgnoreHydrationError>
+                        {"— "}
+                        {parse(reply.content)}
+                      </IgnoreHydrationError>
+                    </>
                   }
                 />
               </ListItem>
@@ -224,22 +231,71 @@ export default function DoubtsViewContainer() {
             ))}
           </List>
         </Box>
-        <Box>
-          <ReactQuill
-            theme="bubble"
-            value={value}
-            onChange={setValue}
-            modules={modules}
-            formats={formats}
-          />
-          <Button
-            onClick={() =>
-              document.getElementsByClassName("ql-image")[0].click()
-            }
+        <Toolbar
+          sx={{
+            mx: -2,
+            display: "flex",
+            zIndex: "9999",
+            position: "fixed",
+            bottom: "0",
+            width: "100%",
+            background: "white",
+          }}
+        >
+          <Divider
+            textAlign="left"
+            sx={{
+              position: "absolute",
+              width: "100%",
+              top: "-1rem",
+              mx: -2,
+            }}
           >
-            Insert Image
-          </Button>
-        </Box>
+            <Typography
+              variant="overline"
+              fontSize={10}
+              disablePadding
+              sx={{
+                background: "wheat",
+                padding: "4px 8px",
+                borderRadius: "16px",
+              }}
+            >
+              Replying to Pradyut
+            </Typography>
+          </Divider>
+          <Box
+            sx={{
+              flexGrow: 1,
+              overflow: "auto",
+              lineBreak: "anywhere",
+              ml: -2,
+            }}
+          >
+            <ReactQuill
+              theme="bubble"
+              value={value}
+              onChange={setValue}
+              modules={modules}
+              formats={formats}
+              placeholder="Compose a comment..."
+            />
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "flex-end", mr: -1 }}>
+            <IconButton>
+              <FolderIcon />
+            </IconButton>
+            <IconButton>
+              <FolderIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+        <Button
+          onClick={() => document.getElementsByClassName("ql-image")[0].click()}
+        >
+          Insert Image
+        </Button>
+        <Toolbar></Toolbar>
       </Container>
     </main>
   );

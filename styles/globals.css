@@ -146,3 +146,15 @@ button.MuiButtonBase-root.MuiTab-root {
 .quill img {
   width: 50%;
 }
+
+.comment-content img {
+  width: 50%;
+}
+.comment-content * {
+  line-break: anywhere;
+}
+
+.quill {
+  height: max-content;
+  max-height: calc(56px * 3);
+}
