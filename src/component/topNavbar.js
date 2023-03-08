@@ -156,7 +156,7 @@ function DrawerAppBar(props) {
           <>
             {item.type == "button" ? (
               <ListItem key={index} disablePadding>
-                <Link href={generateLink(item.link)} sx={{ width: "100%" }}>
+                <Link href={generateLink(item.link)} style={{ width: "100%" }}>
                   <ListItemButton sx={{ textAlign: "left" }}>
                     <ListItemIcon>{item.icon}</ListItemIcon>
                     <ListItemText primary={item.title} />
