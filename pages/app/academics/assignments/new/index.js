@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Container from "../../../../../../src/container/academics/assignmentsView";
-import BottomNavbar from "../../../../../../src/component/bottomNavbar";
-import TopNavbar from "../../../../../../src/component/topNavbar";
+import Container from "../../../../../src/container/academics/assignmentsNew";
+import BottomNavbar from "../../../../../src/component/bottomNavbar";
+import TopNavbar from "../../../../../src/component/topNavbar";
 import { useRouter } from "next/router";
 
 export default function AcademicsPage() {
