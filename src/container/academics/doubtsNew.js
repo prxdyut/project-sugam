@@ -14,23 +14,26 @@ import TextEditor from "../../component/textEditor";
 import { UploadFileRounded } from "@mui/icons-material";
 // import { Editor } from "react-draft-wysiwyg";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import ReactImageFileToBase64 from "react-file-image-to-base64";
+import imageToBase64 from "image-to-base64/browser";
 
 export default function Assignment() {
   const [toggleButtonValue, setToggleButtonValue] = React.useState(() => [
     "tutors",
     "mates",
   ]);
-  const [value, setValue] = React.useState();
+  const [editorCode, setEditorCode] = React.useState();
+
+  const [files, setFile] = React.useState(() => []);
 
   const handleToggleButtonValue = (event, newValue) => {
     setToggleButtonValue(newValue);
   };
-
+  console.log(files);
   return (
     <main>
       <Container
         sx={{
-          minHeight: "100vh",
           width: "100%",
         }}
       >
@@ -56,12 +59,34 @@ export default function Assignment() {
             <ToggleButton value="tutors">Tutors</ToggleButton>
             <ToggleButton value="mates">Mates</ToggleButton>
           </ToggleButtonGroup>
-          <Box sx={{}}>
-            <TextEditor style={{}} onChange={setValue} />
-          </Box>
-          <Button variant="outlined">
+          <TextEditor
+            style={{}}
+            onChange={setEditorCode}
+            placeholder={"Explain your Doubt in Detail"}
+          />
+          <Button
+            variant="outlined"
+            type="upload"
+            onClick={() => document.getElementById("file").click()}
+          >
+            <input
+              type="file"
+              id="file"
+              name="files"
+              onChange={(e) =>
+                imageToBase64(e.target.files) // Path to the image
+                  .then((response) => {
+                    setFile([...files, response]); // "cGF0aC90by9maWxlLmpwZw=="
+                  })
+                  .catch((error) => {
+                    alert(error); // Logs an error if there was one
+                  })
+              }
+              style={{ display: "none" }}
+            />
             <UploadFileRounded /> &nbsp; Upload
           </Button>
+          {/* <img src={"data:image/png;base64, " + files} /> */}
         </Stack>
       </Container>
     </main>

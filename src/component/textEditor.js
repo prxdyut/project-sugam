@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 import "react-quill/dist/quill.snow.css";
 
-const TextEditor = ({ onChange, style }) => {
+const TextEditor = ({ onChange, style, placeholder, theme }) => {
   const ReactQuill = React.useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
     []
@@ -47,12 +47,13 @@ const TextEditor = ({ onChange, style }) => {
     "header",
   ];
   return (
-    <Box sx={style}>
+    <Box>
       <ReactQuill
-        theme="snow"
+        theme={theme ? theme : "snow"}
         onChange={onChange}
         modules={modules}
         formats={formats}
+        placeholder={placeholder}
       />
     </Box>
   );
