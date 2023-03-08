@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
@@ -25,11 +26,61 @@ import LinearProgress from "@mui/material/LinearProgress";
 import NextNProgress from "nextjs-progressbar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Fade } from "@mui/material";
 
+import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
+import EventNoteRoundedIcon from "@mui/icons-material/EventNoteRounded";
+import ListAltRoundedIcon from "@mui/icons-material/ListAltRounded";
+import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
+import RuleRoundedIcon from "@mui/icons-material/RuleRounded";
+import QuestionMarkRoundedIcon from "@mui/icons-material/QuestionMarkRounded";
+import SettingsIcon from "@mui/icons-material/Settings";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AllInboxIcon from "@mui/icons-material/AllInbox";
+
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems = [
+  { type: "button", title: "Feed", link: ".", icon: <AllInboxIcon /> },
+  { type: "divider" },
+  { type: "text", title: "Academics" },
+  {
+    type: "button",
+    title: "Assignments",
+    link: ".",
+    icon: <ListAltRoundedIcon />,
+  },
+  { type: "button", title: "Tests", link: ".", icon: <RuleRoundedIcon /> },
+  {
+    type: "button",
+    title: "Doubts",
+    link: ".",
+    icon: <QuestionMarkRoundedIcon />,
+  },
+  { type: "divider" },
+  {
+    type: "button",
+    title: "Schedule",
+    link: ".",
+    icon: <EventNoteRoundedIcon />,
+  },
+  {
+    type: "button",
+    title: "Library",
+    link: ".",
+    icon: <FileDownloadRoundedIcon />,
+  },
+  { type: "divider" },
+  { type: "text", title: "Profile" },
+  { type: "button", title: "Personal Info", link: ".", icon: <WidgetsIcon /> },
+  { type: "button", title: "Remarks", link: ".", icon: <WidgetsIcon /> },
+  { type: "button", title: "Fees", link: ".", icon: <WidgetsIcon /> },
+  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
+  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
+  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
+];
 import Link from "next/link";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -43,18 +94,59 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        XYZ Classes
       </Typography>
-      <Divider />
+      <Box
+        sx={{
+          position: "sticky",
+          top: "0",
+          background: "white",
+          zIndex: "1",
+        }}
+      >
+        <Typography variant="body1" sx={{ py: 1, px: 2 }} textAlign="start">
+          Hey! Pradyut Das
+        </Typography>
+      </Box>
+      {/* <Divider /> */}
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
+        {navItems.map((item, index) => (
+          <>
+            {item.type == "button" ? (
+              <ListItem key={index} disablePadding>
+                <ListItemButton sx={{ textAlign: "left" }}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItemButton>
+              </ListItem>
+            ) : null}
+            {item.type == "divider" ? <Divider component="li" /> : null}
+            {item.type == "text" ? (
+              <Typography
+                component="li"
+                variant="caption"
+                sx={{ mt: 2, mb: 1, mx: 2, textAlign: "start" }}
+              >
+                {item.title}
+              </Typography>
+            ) : null}
+          </>
         ))}
       </List>
+      <Toolbar sx={{ position: "sticky", bottom: "0", background: "white" }}>
+        <Button
+          variant="text"
+          fullWidth
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            color: "red",
+          }}
+        >
+          Log out
+          <LogoutIcon size="small" />
+        </Button>
+      </Toolbar>
     </Box>
   );
 
@@ -105,7 +197,7 @@ function DrawerAppBar(props) {
           </ListItem>
         </List>
       </Popover>
-      <Toolbar sx={{mb:1}} />
+      <Toolbar sx={{ mb: 1 }} />
       {props.variant == "primary" ? (
         <AppBar component="nav" elevation={0}>
           <Toolbar>

@@ -77,18 +77,18 @@ export default function AssignmentsViewContainer() {
           <Typography variant="body1">19 June 2023</Typography>
         </Box>
         <Box sx={{ my: 1 }}>
-          <Divider>
-            <Typography variant="overline">Result</Typography>
+          <Divider textAlign={"left"}>
+            <Typography variant="overline">Result:</Typography>
           </Divider>
           <Box>
-            <Typography variant="h6">19 / 25</Typography>
+            <Typography variant="h5" fontWeight={500}>
+              19/25
+            </Typography>
           </Box>
         </Box>
         <Box sx={{ my: 1 }}>
-          <Divider>
-            <Typography variant="overline" textAlign={"left"}>
-              Question Set:
-            </Typography>
+          <Divider textAlign={"left"}>
+            <Typography variant="overline">Question Set:</Typography>
           </Divider>
           <Box>
             <ImageList
@@ -110,10 +110,8 @@ export default function AssignmentsViewContainer() {
           </Box>
         </Box>
         <Box sx={{ my: 1 }}>
-          <Divider>
-            <Typography textAlign={"left"} variant="overline">
-              Solution Set:
-            </Typography>
+          <Divider textAlign={"left"}>
+            <Typography variant="overline">Solution Set:</Typography>
           </Divider>
           <Box>
             <ImageList
