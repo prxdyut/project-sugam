@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Container from "../../../../../src/container/academics/doubtsView";
+import Container from "../../../../../src/container/academics/doubtsView2";
 import BottomNavbar from "../../../../../src/component/bottomNavbar";
 import TopNavbar from "../../../../../src/component/topNavbar";
 import { useRouter } from "next/router";

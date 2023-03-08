@@ -295,7 +295,6 @@ export default function DoubtsViewContainer() {
         >
           Insert Image
         </Button>
-        <Toolbar></Toolbar>
       </Container>
     </main>
   );
