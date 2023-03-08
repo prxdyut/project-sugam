@@ -142,6 +142,7 @@ function DrawerAppBar(props) {
             justifyContent: "space-between",
             color: "red",
           }}
+          disableFocusRipple
         >
           Log out
           <LogoutIcon size="small" />
