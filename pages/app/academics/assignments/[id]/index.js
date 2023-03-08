@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 export default function AcademicsPage() {
   const router = useRouter();
-  const {id} = router.query;
+  const { id } = router.query;
   return (
     <>
       <Head>
@@ -15,9 +15,9 @@ export default function AcademicsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopNavbar variant='secondary' title={'Assignment : ' + id} />
+      <TopNavbar variant="primary" title={"Assignment : " + id} />
       <Container page={0} />
-      
+
       <BottomNavbar />
     </>
   );

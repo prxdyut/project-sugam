@@ -38,47 +38,89 @@ import QuestionMarkRoundedIcon from "@mui/icons-material/QuestionMarkRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
+import generateLink from "../function/generateLink";
 
 const drawerWidth = 240;
 const navItems = [
-  { type: "button", title: "Feed", link: ".", icon: <AllInboxIcon /> },
+  {
+    type: "button",
+    title: "Feed",
+    link: "feed",
+    icon: <AllInboxIcon />,
+  },
   { type: "divider" },
   { type: "text", title: "Academics" },
   {
     type: "button",
     title: "Assignments",
-    link: ".",
+    link: "academics/assignments",
     icon: <ListAltRoundedIcon />,
   },
-  { type: "button", title: "Tests", link: ".", icon: <RuleRoundedIcon /> },
+  {
+    type: "button",
+    title: "Tests",
+    link: "academics/tests",
+    icon: <RuleRoundedIcon />,
+  },
   {
     type: "button",
     title: "Doubts",
-    link: ".",
+    link: "academics/doubts",
     icon: <QuestionMarkRoundedIcon />,
   },
   { type: "divider" },
   {
     type: "button",
     title: "Schedule",
-    link: ".",
+    link: "schedule",
     icon: <EventNoteRoundedIcon />,
   },
   {
     type: "button",
     title: "Library",
-    link: ".",
+    link: "library",
     icon: <FileDownloadRoundedIcon />,
   },
   { type: "divider" },
   { type: "text", title: "Profile" },
-  { type: "button", title: "Personal Info", link: ".", icon: <WidgetsIcon /> },
-  { type: "button", title: "Remarks", link: ".", icon: <WidgetsIcon /> },
-  { type: "button", title: "Fees", link: ".", icon: <WidgetsIcon /> },
-  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
-  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
-  { type: "button", title: "Reports", link: ".", icon: <WidgetsIcon /> },
+  {
+    type: "button",
+    title: "Personal Info",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
+  {
+    type: "button",
+    title: "Remarks",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
+  {
+    type: "button",
+    title: "Fees",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
+  {
+    type: "button",
+    title: "Reports",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
+  {
+    type: "button",
+    title: "Reports",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
+  {
+    type: "button",
+    title: "Reports",
+    link: "library",
+    icon: <WidgetsIcon />,
+  },
 ];
+import { useRouter } from "next/router";
 import Link from "next/link";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -86,11 +128,12 @@ function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
-
+  const router = useRouter();
+  console.log(router.pathname, router.pathname.split("/").length);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+  const link = "";
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -108,16 +151,17 @@ function DrawerAppBar(props) {
           Hey! Pradyut Das
         </Typography>
       </Box>
-      {/* <Divider /> */}
       <List>
         {navItems.map((item, index) => (
           <>
             {item.type == "button" ? (
               <ListItem key={index} disablePadding>
-                <ListItemButton sx={{ textAlign: "left" }}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
+                <Link href={generateLink(item.link)} sx={{ width: "100%" }}>
+                  <ListItemButton sx={{ textAlign: "left" }}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItemButton>
+                </Link>
               </ListItem>
             ) : null}
             {item.type == "divider" ? <Divider component="li" /> : null}
