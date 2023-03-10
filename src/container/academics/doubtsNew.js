@@ -10,7 +10,6 @@ import { ToggleButton } from "@mui/material";
 // import dynamic from "next/dynamic";
 import TextEditor from "../../component/textEditor";
 import ImageUploader from "../../component/imageUploader";
-import ImagePreview from "../../component/imagePreview";
 // import "react-quill/dist/quill.snow.css";
 import {
   ToggleButtonGroup,
@@ -36,10 +35,6 @@ import ReactImageFileToBase64 from "react-file-image-to-base64";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
 
 import PinchZoomPan from "react-image-zoom-pan";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Grow direction="up" ref={ref} {...props} />;
-});
 
 export default function DoubtsNewContainer() {
   const [toggleButtonValue, setToggleButtonValue] = React.useState(() => [
@@ -72,6 +67,10 @@ export default function DoubtsNewContainer() {
   const flexContentStyle = {
     fontSize: 20,
     margin: "auto",
+  };
+
+  const preview = (e) => {
+    console.log(e.target.src);
   };
 
   return (
@@ -114,30 +113,37 @@ export default function DoubtsNewContainer() {
           <ImageUploader onChange={setImages} />
           <ImageList
             sx={{ width: "100%", height: "max-content", mt: 1 }}
+            variant="masonry"
             cols={3}
-            rowHeight={164}
+            gap={8}
           >
-            {images.map((item, index) => (
-              <ImageListItem
-                key={index}
-                onClick={() => (
-                  <ImagePreview
-                    img={
-                      "https://images.unsplash.com/photo-1566438480900-0609be27a4be"
-                    }
-                  />
-                )}
-              >
+            {images.map((file, index) => (
+              <ImageListItem key={index}>
+                {/* <ImagePreview img={file.base64_file} /> */}
                 <img
-                  src={`${item.base64_file}`}
-                  srcSet={`${item.base64_file}`}
-                  alt={index}
+                  src={`${file.base64_file}`}
+                  srcSet={`${file.base64_file}`}
+                  alt={file.base64_file}
                   loading="lazy"
+                  onClick={preview}
                 />
               </ImageListItem>
             ))}
           </ImageList>
         </Stack>
+        <button type="button" onClick={() => setOpen(true)}>
+          Open Lightbox
+        </button>
+
+        <Lightbox
+          open={open}
+          close={() => setOpen(false)}
+          slides={[
+            { src: "/image1.jpg" },
+            { src: "/image2.jpg" },
+            { src: "/image3.jpg" },
+          ]}
+        />
       </Container>
     </main>
   );
