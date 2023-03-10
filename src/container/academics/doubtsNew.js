@@ -33,7 +33,7 @@ import { UploadFileRounded } from "@mui/icons-material";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ReactImageFileToBase64 from "react-file-image-to-base64";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
-
+import ImageView from "../../component/imageViewer";
 import PinchZoomPan from "react-image-zoom-pan";
 
 export default function DoubtsNewContainer() {
@@ -111,39 +111,34 @@ export default function DoubtsNewContainer() {
             {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
           </div>
           <ImageUploader onChange={setImages} />
-          <ImageList
-            sx={{ width: "100%", height: "max-content", mt: 1 }}
-            variant="masonry"
-            cols={3}
-            gap={8}
+          <ImageView
+            images={[
+              { src: "https://picsum.photos/200/300", width: 200, height: 300 },
+              { src: "https://picsum.photos/200/400", width: 200, height: 400 },
+              { src: "https://picsum.photos/200/350", width:200, height:400 },
+            ]}
           >
-            {images.map((file, index) => (
-              <ImageListItem key={index}>
-                {/* <ImagePreview img={file.base64_file} /> */}
-                <img
-                  src={`${file.base64_file}`}
-                  srcSet={`${file.base64_file}`}
-                  alt={file.base64_file}
-                  loading="lazy"
-                  onClick={preview}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
+            <ImageList
+              sx={{ width: "100%", height: "max-content", mt: 1 }}
+              variant="masonry"
+              cols={3}
+              gap={8}
+            >
+              {images.map((file, index) => (
+                <ImageListItem key={index}>
+                  {/* <ImagePreview img={file.base64_file} /> */}
+                  <img
+                    src={`${file.base64_file}`}
+                    srcSet={`${file.base64_file}`}
+                    alt={file.base64_file}
+                    loading="lazy"
+                    onClick={preview}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </ImageView>
         </Stack>
-        <button type="button" onClick={() => setOpen(true)}>
-          Open Lightbox
-        </button>
-
-        <Lightbox
-          open={open}
-          close={() => setOpen(false)}
-          slides={[
-            { src: "/image1.jpg" },
-            { src: "/image2.jpg" },
-            { src: "/image3.jpg" },
-          ]}
-        />
       </Container>
     </main>
   );
