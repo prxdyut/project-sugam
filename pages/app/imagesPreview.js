@@ -3,11 +3,11 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Image from "next/image";
 
-import image1 from "https://images.unsplash.com/photo-1566438480900-0609be27a4be";
-import image2 from "https://images.unsplash.com/photo-1566438480900-0609be27a4be";
-import image3 from "https://images.unsplash.com/photo-1566438480900-0609be27a4be";
-import image4 from "https://images.unsplash.com/photo-1566438480900-0609be27a4be";
-import image5 from "https://images.unsplash.com/photo-1566438480900-0609be27a4be";
+import image1 from "../../public/image.png";
+import image2 from "../../public/image.png";
+import image3 from "../../public/image.png";
+import image4 from "../../public/image.png";
+import image5 from "../../public/image.png";
 
 const slides = [image1, image2, image3, image4, image5];
 
