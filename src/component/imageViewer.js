@@ -91,7 +91,7 @@ export default function FullScreenDialog({ images }) {
               value={zoom * 20}
               min={20}
               onChange={(e) =>
-                e.target.value / 20 >= 1 && setZoom(e.target.value / 10)
+                e.target.value / 20 >= 1 && setZoom(e.target.value / 20)
               }
               aria-label="Default"
               valueLabelDisplay="auto"
