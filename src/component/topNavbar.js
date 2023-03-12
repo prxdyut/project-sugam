@@ -23,7 +23,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Popover from "@mui/material/Popover";
 
 import LinearProgress from "@mui/material/LinearProgress";
-import NextNProgress from "nextjs-progressbar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import WidgetsIcon from "@mui/icons-material/Widgets";
