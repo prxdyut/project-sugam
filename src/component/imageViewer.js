@@ -73,7 +73,7 @@ export default function FullScreenDialog({ images }) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative" }}>
+        <AppBar sx={{ position: "sticky", top: 0 }}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -99,9 +99,6 @@ export default function FullScreenDialog({ images }) {
             style={{
               width: "100%",
               height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               overflow: "auto",
             }}
           >
@@ -109,7 +106,7 @@ export default function FullScreenDialog({ images }) {
               style={{
                 transform: "scale(" + zoom + ")",
                 transition: "transform 1s",
-                width: "100%",
+                // width: "100%",
               }}
             >
               <div style={{ width: "100%", height: "auto" }}>
