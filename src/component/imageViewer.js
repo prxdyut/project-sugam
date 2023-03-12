@@ -38,7 +38,7 @@ export default function FullScreenDialog({ images }) {
   };
 
   const increaseZoom = () => {
-    zoom + 0.25 <= 10 && setZoom(zoom + 0.25);
+    zoom + 0.25 <= 5 && setZoom(zoom + 0.25);
   };
 
   const decreaseZoom = () => {
@@ -88,10 +88,10 @@ export default function FullScreenDialog({ images }) {
             </IconButton>
             <Slider
               sx={{ ml: 2, flex: 1 }}
-              value={zoom * 10}
-              min={10}
+              value={zoom * 20}
+              min={20}
               onChange={(e) =>
-                e.target.value / 10 >= 1 && setZoom(e.target.value / 10)
+                e.target.value / 20 >= 1 && setZoom(e.target.value / 10)
               }
               aria-label="Default"
               valueLabelDisplay="auto"
@@ -119,6 +119,7 @@ export default function FullScreenDialog({ images }) {
                     objectFit: "contain",
                     scale: " " + zoom + " ",
                     transition: "scale 0.2s",
+                    transformOrigin: "0 0",
                   }}
                   src={images[activeStep].src}
                   alt={images[activeStep].src}
