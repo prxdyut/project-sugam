@@ -77,7 +77,7 @@ export default function FullScreenDialog() {
   };
 
   return (
-    <div>
+    <Box sx={{ display: "flex" }}>
       <Button variant="outlined" onClick={handleClickOpen}>
         Open full-screen dialog
       </Button>
@@ -105,29 +105,38 @@ export default function FullScreenDialog() {
             </Button>
           </Toolbar>
         </AppBar>
-
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
           <AutoPlaySwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={activeStep}
             onChangeIndex={handleStepChange}
             enableMouseEvents
+            style={{ flexGrow: 1, display: "flex" }}
           >
             {images.map((step, index) => (
-              <div key={step.label}>
+              <div
+                key={step.label}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
                 {Math.abs(activeStep - index) <= 2 ? (
-                  <Box
-                    component="img"
-                    sx={{
-                      height: "90vh",
-                      display: "block",
-                      maxWidth: 400,
-                      overflow: "hidden",
-                      width: "100%",
-                    }}
-                    src={step.imgPath}
-                    alt={step.label}
-                  />
+                  <div style={{ width: "100%", height: "auto" }}>
+                    <div style={{ width: "auto", height: "100%" }}>
+                      <Box
+                        component="img"
+                        sx={{
+                          display: "block",
+                          overflow: "hidden",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                        src={step.imgPath}
+                        alt={step.label}
+                      />
+                    </div>
+                  </div>
                 ) : null}
               </div>
             ))}
@@ -167,6 +176,6 @@ export default function FullScreenDialog() {
           />
         </Box>
       </Dialog>
-    </div>
+    </Box>
   );
 }
