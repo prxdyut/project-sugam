@@ -73,7 +73,7 @@ export default function FullScreenDialog({ images }) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "sticky", top: 0 }}>
+        <AppBar sx={{ position: "fixed", top: 0 }}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -103,6 +103,8 @@ export default function FullScreenDialog({ images }) {
               height: "calc(100vh - 56px - 32px - 8px*2)",
               width: "100vw",
               objectFit: "contain",
+              scale: zoom,
+              transition: "scale 0.2s",
             }}
             src={images[activeStep].src}
             alt={images[activeStep].src}
@@ -110,7 +112,7 @@ export default function FullScreenDialog({ images }) {
         </Box>
         <MobileStepper
           elevation={2}
-          sx={{ position: "sticky", bottom: "0" }}
+          sx={{ position: "fixed", width: "100%", bottom: "0" }}
           steps={maxSteps}
           position="static"
           activeStep={activeStep}
