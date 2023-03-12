@@ -18,9 +18,11 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import Grow from "@mui/material/Grow";
+import Slider from "@mui/material/Slider";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Grow direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog({ images }) {
