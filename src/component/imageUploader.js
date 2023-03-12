@@ -16,8 +16,8 @@ export default function ImageUploader({ onChange }) {
   const CustomisedButton = ({ triggerInput }) => {
     return (
       <Button variant="outlined" type="upload" onClick={triggerInput}>
-        <UploadFileRounded /> &nbsp; Upload                           
-      </Button>                                                        
+        <UploadFileRounded /> &nbsp; Upload
+      </Button>
     );
   };
   return (
