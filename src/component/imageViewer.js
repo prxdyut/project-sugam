@@ -36,14 +36,15 @@ export default function FullScreenDialog({ images }) {
   };
 
   const increaseZoom = () => {
-    setZoom(zoom + 0.25);
+    zoom + 0.25 <= 10 && setZoom(zoom + 0.25);
   };
 
   const decreaseZoom = () => {
-    zoom != 0 && setZoom(zoom - 0.25);
+    zoom - 0.25 >= 1 && setZoom(zoom - 0.25);
   };
 
   const resetZoom = () => setZoom(1);
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
@@ -83,9 +84,13 @@ export default function FullScreenDialog({ images }) {
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
-            </Typography>
+            <Slider
+              sx={{ ml: 2, flex: 1 }}
+              defaultValue={zoom * 10}
+              onChange={(e) => console.log(e)}
+              aria-label="Default"
+              valueLabelDisplay="auto"
+            />
             <Button autoFocus color="inherit" onClick={increaseZoom}>
               +
             </Button>
@@ -103,7 +108,7 @@ export default function FullScreenDialog({ images }) {
               height: "calc(100vh - 56px - 32px - 8px*2)",
               width: "100vw",
               objectFit: "contain",
-              scale: zoom,
+              scale: " " + zoom + " ",
               transition: "scale 0.2s",
             }}
             src={images[activeStep].src}
