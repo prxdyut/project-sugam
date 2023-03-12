@@ -1,96 +1,172 @@
 import * as React from "react";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import ImageComponent from "next/image";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MobileStepper from "@mui/material/MobileStepper";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import SwipeableViews from "react-swipeable-views";
+import { autoPlay } from "react-swipeable-views-utils";
 
-function getImageDimensions(src) {
-  const [url, setUrl] = React.useState(false);
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-  const getMeta = (url) =>
-    new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = (err) => reject(err);
-      img.src = url;
-    });
+const images = [
+  {
+    label: "San Francisco – Oakland Bay Bridge, United States",
+    imgPath:
+      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
+  },
+  // {
+  //   label: "Bird",
+  //   imgPath:
+  //     "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
+  // },
+  // {
+  //   label: "Bali, Indonesia",
+  //   imgPath:
+  //     "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
+  // },
+  // {
+  //   label: "Goč, Serbia",
+  //   imgPath:
+  //     "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
+  // },
+];
 
-  (async () => {
-    getMeta(src).then(
-      (img) =>
-        !url && setUrl({ width: img.naturalWidth, height: img.naturalHeight })
-    );
-    console.log(url);
-  })();
-  return url;
-}
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
 
-function NextJsImage(image, offset, rect) {
-  const width = Math.round(
-    Math.min(rect.width, (rect.height / image.height) * image.width)
-  );
-  const height = Math.round(
-    Math.min(rect.height, (rect.width / image.width) * image.height)
-  );
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-  return (
-    <div style={{ position: "relative", width, height }}>
-      <Image
-        fill
-        alt=""
-        src={image}
-        loading="eager"
-        placeholder="blur"
-        draggable={false}
-        sizes={
-          typeof window !== "undefined"
-            ? `${Math.ceil((width / window.innerWidth) * 100)}vw`
-            : `${width}px`
-        }
-      />
-    </div>
-  );
-}
-
-export default function Home({ images }) {
+export default function FullScreenDialog() {
   const [open, setOpen] = React.useState(false);
-  const slides = [
-    {
-      src: "https://picsum.photos/200/300",
-      ...getImageDimensions("https://picsum.photos/200/300"),
-    },
-    {
-      src: "https://picsum.photos/200/400",
-      ...getImageDimensions("https://picsum.photos/200/400"),
-    },
-    {
-      src: "https://picsum.photos/200/350",
-      ...getImageDimensions("https://picsum.photos/200/350"),
-    },
-  ];
-  console.log(slides);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = images.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
 
   return (
-    <main className="flex flex-col items-center text-center p-6 gap-6">
-      <h1 className="text-2xl font-bold">
-        Yet Another React Lightbox | Next.js
-      </h1>
-
-      <button
-        type="button"
-        className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-        onClick={() => setOpen(true)}
-      >
-        Open Lightbox
-      </button>
-
-      <Lightbox
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open full-screen dialog
+      </Button>
+      <Dialog
+        fullScreen
         open={open}
-        close={() => setOpen(false)}
-        slides={slides}
-        render={{ slide: NextJsImage }}
-        plugins={[Zoom]}
-      />
-    </main>
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: "relative" }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Sound
+            </Typography>
+            <Button autoFocus color="inherit" onClick={handleClose}>
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+
+        <Box sx={{ flexGrow: 1 }}>
+          <AutoPlaySwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={activeStep}
+            onChangeIndex={handleStepChange}
+            enableMouseEvents
+          >
+            {images.map((step, index) => (
+              <div key={step.label}>
+                {Math.abs(activeStep - index) <= 2 ? (
+                  <Box
+                    component="img"
+                    sx={{
+                      height: "90vh",
+                      display: "block",
+                      maxWidth: 400,
+                      overflow: "hidden",
+                      width: "100%",
+                    }}
+                    src={step.imgPath}
+                    alt={step.label}
+                  />
+                ) : null}
+              </div>
+            ))}
+          </AutoPlaySwipeableViews>
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button
+                size="small"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+              >
+                Next
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            backButton={
+              <Button
+                size="small"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+              >
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Back
+              </Button>
+            }
+          />
+        </Box>
+      </Dialog>
+    </div>
   );
 }
