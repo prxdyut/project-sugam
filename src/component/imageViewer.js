@@ -12,29 +12,6 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const images = [
-  {
-    label: "San Francisco – Oakland Bay Bridge, United States",
-    imgPath:
-      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  // {
-  //   label: "Bird",
-  //   imgPath:
-  //     "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-  // },
-  // {
-  //   label: "Bali, Indonesia",
-  //   imgPath:
-  //     "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
-  // },
-  // {
-  //   label: "Goč, Serbia",
-  //   imgPath:
-  //     "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
-  // },
-];
-
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -50,8 +27,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function FullScreenDialog({ images }) {
   const [open, setOpen] = React.useState(false);
+  const [zoom, setZoom] = React.useState(1);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,16 +38,28 @@ export default function FullScreenDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const increaseZoom = () => {
+    setZoom(zoom + 0.25);
+  };
+
+  const decreaseZoom = () => {
+    zoom >= 1 && setZoom(zoom - 0.25);
+  };
+
+  const resetZoom = () => setZoom(1);
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    resetZoom();
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    resetZoom();
   };
 
   const handleStepChange = (step) => {
@@ -100,12 +90,16 @@ export default function FullScreenDialog() {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Sound
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
+            <Button autoFocus color="inherit" onClick={increaseZoom}>
+              +
+            </Button>
+            <Button autoFocus color="inherit" onClick={decreaseZoom}>
+              -
             </Button>
           </Toolbar>
         </AppBar>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          <style>{".react-swipeable-view-container {width: 100%;}"}</style>
           <AutoPlaySwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={activeStep}
@@ -115,26 +109,37 @@ export default function FullScreenDialog() {
           >
             {images.map((step, index) => (
               <div
-                key={step.label}
+                key={index}
                 style={{
                   width: "100%",
                   height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "auto",
                 }}
               >
                 {Math.abs(activeStep - index) <= 2 ? (
-                  <div style={{ width: "100%", height: "auto" }}>
-                    <div style={{ width: "auto", height: "100%" }}>
-                      <Box
-                        component="img"
-                        sx={{
-                          display: "block",
-                          overflow: "hidden",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                        src={step.imgPath}
-                        alt={step.label}
-                      />
+                  <div
+                    style={{
+                      transform: "scale(" + zoom + ")",
+                      transition: "transform 1s",
+                    }}
+                  >
+                    <div style={{ width: "100%", height: "auto" }}>
+                      <div style={{ width: "auto", height: "100%" }}>
+                        <Box
+                          component="img"
+                          sx={{
+                            display: "block",
+                            overflow: "hidden",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          src={step.src}
+                          alt={index}
+                        />
+                      </div>
                     </div>
                   </div>
                 ) : null}

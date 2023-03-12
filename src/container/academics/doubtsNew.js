@@ -113,9 +113,9 @@ export default function DoubtsNewContainer() {
           <ImageUploader onChange={setImages} />
           <ImageView
             images={[
-              { src: "https://picsum.photos/200/300", width: 200, height: 300 },
-              { src: "https://picsum.photos/200/400", width: 200, height: 400 },
-              { src: "https://picsum.photos/200/350", width:200, height:400 },
+              { src: "https://picsum.photos/200/300" },
+              { src: "https://picsum.photos/200/400" },
+              { src: "https://picsum.photos/200/350" },
             ]}
           >
             <ImageList
