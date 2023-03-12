@@ -94,20 +94,22 @@ export default function FullScreenDialog({ images }) {
             </Button>
           </Toolbar>
         </AppBar>
-        <Box sx={{ flexGrow: 1, display: "flex" }}>
+        <Box sx={{ flexGrow: 1 }}>
           <Box
             component="img"
             sx={{
               display: "block",
               overflow: "hidden",
-              width: "100%",
-              height: "100%",
+              height: "calc(100vh - 56px - 32px - 8px*2)",
+              width: "100vw",
+              objectFit: "contain",
             }}
             src={images[activeStep].src}
             alt={images[activeStep].src}
           />
         </Box>
         <MobileStepper
+          elevation={2}
           sx={{ position: "sticky", bottom: "0" }}
           steps={maxSteps}
           position="static"
