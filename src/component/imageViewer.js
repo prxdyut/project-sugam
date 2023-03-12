@@ -40,7 +40,7 @@ export default function FullScreenDialog({ images }) {
   };
 
   const decreaseZoom = () => {
-    zoom >= 1 && setZoom(zoom - 0.25);
+    zoom > 1 && setZoom(zoom - 0.25);
   };
 
   const resetZoom = () => setZoom(1);
