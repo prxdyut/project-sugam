@@ -88,9 +88,10 @@ export default function FullScreenDialog({ images }) {
             </IconButton>
             <Slider
               sx={{ ml: 2, flex: 1 }}
-              value={zoom}
+              value={zoom*10}
+              min={10}
               onChange={(e) =>
-                e.target.value / 10 >= 0 && setZoom(e.target.value / 10)
+                e.target.value / 10 >= 1 && setZoom(e.target.value / 10)
               }
               aria-label="Default"
               valueLabelDisplay="auto"
