@@ -7,10 +7,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from "react-swipeable-views-utils";
-
-const AutoPlaySwipeableViews = SwipeableViews;
 
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
@@ -99,53 +95,39 @@ export default function FullScreenDialog({ images }) {
           </Toolbar>
         </AppBar>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-          <style>{".react-swipeable-view-container {width: 100%;}"}</style>
-          <AutoPlaySwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
-            style={{ flexGrow: 1, display: "flex" }}
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "auto",
+            }}
           >
-            {images.map((step, index) => (
-              <div
-                key={index}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "auto",
-                }}
-              >
-                {Math.abs(activeStep - index) <= 2 ? (
-                  <div
-                    style={{
-                      transform: "scale(" + zoom + ")",
-                      transition: "transform 1s",
+            <div
+              style={{
+                transform: "scale(" + zoom + ")",
+                transition: "transform 1s",
+              }}
+            >
+              <div style={{ width: "100%", height: "auto" }}>
+                <div style={{ width: "auto", height: "100%" }}>
+                  <Box
+                    component="img"
+                    sx={{
+                      display: "block",
+                      overflow: "hidden",
+                      width: "100%",
+                      height: "100%",
                     }}
-                  >
-                    <div style={{ width: "100%", height: "auto" }}>
-                      <div style={{ width: "auto", height: "100%" }}>
-                        <Box
-                          component="img"
-                          sx={{
-                            display: "block",
-                            overflow: "hidden",
-                            width: "100%",
-                            height: "100%",
-                          }}
-                          src={step.src}
-                          alt={index}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                    src={images[activeStep].src}
+                    alt={images[activeStep].src}
+                  />
+                </div>
               </div>
-            ))}
-          </AutoPlaySwipeableViews>
+            </div>
+          </div>
           <MobileStepper
             steps={maxSteps}
             position="static"
