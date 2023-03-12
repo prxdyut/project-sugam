@@ -89,9 +89,10 @@ export default function FullScreenDialog({ images }) {
             <Slider
               sx={{ ml: 2, flex: 1 }}
               defaultValue={zoom * 10}
-              onChange={(e) => console.log(e)}
+              onChange={(e) => setZoom(e.target.value / 10)}
               aria-label="Default"
               valueLabelDisplay="auto"
+              color="secondary"
             />
             <Button autoFocus color="inherit" onClick={increaseZoom}>
               +
