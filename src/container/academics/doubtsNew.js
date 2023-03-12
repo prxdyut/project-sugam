@@ -34,7 +34,6 @@ import { UploadFileRounded } from "@mui/icons-material";
 import ReactImageFileToBase64 from "react-file-image-to-base64";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
 import ImageView from "../../component/imageViewer";
-import PinchZoomPan from "react-image-zoom-pan";
 
 export default function DoubtsNewContainer() {
   const [toggleButtonValue, setToggleButtonValue] = React.useState(() => [
@@ -51,27 +50,6 @@ export default function DoubtsNewContainer() {
   console.log(files);
 
   const [images, setImages] = React.useState([]);
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  console.log(images);
-
-  const flexContentStyle = {
-    fontSize: 20,
-    margin: "auto",
-  };
-
-  const preview = (e) => {
-    console.log(e.target.src);
-  };
 
   return (
     <main>
