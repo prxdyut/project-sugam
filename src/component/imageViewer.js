@@ -40,7 +40,7 @@ export default function FullScreenDialog({ images }) {
   };
 
   const decreaseZoom = () => {
-    zoom > 1 && setZoom(zoom - 0.25);
+    zoom != 0 && setZoom(zoom - 0.25);
   };
 
   const resetZoom = () => setZoom(1);
@@ -109,6 +109,7 @@ export default function FullScreenDialog({ images }) {
               style={{
                 transform: "scale(" + zoom + ")",
                 transition: "transform 1s",
+                width: "100%",
               }}
             >
               <div style={{ width: "100%", height: "auto" }}>
@@ -129,6 +130,7 @@ export default function FullScreenDialog({ images }) {
             </div>
           </div>
           <MobileStepper
+            sx={{ position: "sticky", bottom: "0" }}
             steps={maxSteps}
             position="static"
             activeStep={activeStep}
