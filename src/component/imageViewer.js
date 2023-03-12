@@ -88,7 +88,7 @@ export default function FullScreenDialog({ images }) {
             </IconButton>
             <Slider
               sx={{ ml: 2, flex: 1 }}
-              value={zoom*10}
+              value={zoom * 10}
               min={10}
               onChange={(e) =>
                 e.target.value / 10 >= 1 && setZoom(e.target.value / 10)
@@ -106,20 +106,22 @@ export default function FullScreenDialog({ images }) {
           </Toolbar>
         </AppBar>
         <Box sx={{ flexGrow: 1 }}>
-          <Box
-            component="img"
-            sx={{
-              display: "block",
-              overflow: "hidden",
-              height: "calc(100vh - 56px - 32px - 8px*2)",
-              width: "100vw",
-              objectFit: "contain",
-              scale: " " + zoom + " ",
-              transition: "scale 0.2s",
-            }}
-            src={images[activeStep].src}
-            alt={images[activeStep].src}
-          />
+          <div>
+            <Box
+              component="img"
+              sx={{
+                display: "block",
+                overflow: "hidden",
+                height: "calc(100vh - 56px - 32px - 8px*2)",
+                width: "100vw",
+                objectFit: "contain",
+                scale: " " + zoom + " ",
+                transition: "scale 0.2s",
+              }}
+              src={images[activeStep].src}
+              alt={images[activeStep].src}
+            />
+          </div>
         </Box>
         <MobileStepper
           elevation={2}
