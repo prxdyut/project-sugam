@@ -94,73 +94,53 @@ export default function FullScreenDialog({ images }) {
             </Button>
           </Toolbar>
         </AppBar>
-        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
+        <Box sx={{ flexGrow: 1, display: "flex" }}>
+          <Box
+            component="img"
+            sx={{
+              display: "block",
+              overflow: "hidden",
               width: "100%",
               height: "100%",
-              overflow: "auto",
             }}
-          >
-            <div
-              style={{
-                transform: "scale(" + zoom + ")",
-                transition: "transform 1s",
-                // width: "100%",
-              }}
-            >
-              <div style={{ width: "100%", height: "auto" }}>
-                <div style={{ width: "auto", height: "100%" }}>
-                  <Box
-                    component="img"
-                    sx={{
-                      display: "block",
-                      overflow: "hidden",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src={images[activeStep].src}
-                    alt={images[activeStep].src}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <MobileStepper
-            sx={{ position: "sticky", bottom: "0" }}
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                Next
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-            backButton={
-              <Button
-                size="small"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
-            }
+            src={images[activeStep].src}
+            alt={images[activeStep].src}
           />
         </Box>
+        <MobileStepper
+          sx={{ position: "sticky", bottom: "0" }}
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              Next
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              Back
+            </Button>
+          }
+        />
       </Dialog>
     </Box>
   );
