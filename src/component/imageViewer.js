@@ -25,7 +25,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Grow direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({ images }) {
+export default function FullScreenDialog({ images, children }) {
   const [open, setOpen] = React.useState(false);
   const [zoom, setZoom] = React.useState(1);
 
@@ -67,9 +67,7 @@ export default function FullScreenDialog({ images }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button>
+      <div onClick={handleClickOpen}>{children}</div>
       <Dialog
         fullScreen
         open={open}
