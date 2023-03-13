@@ -54,11 +54,15 @@ export default function DoubtsNewContainer() {
   console.log(files);
 
   const [images, setImages] = React.useState([]);
-  console.log(images);
-  console.log(images);
-  console.log(images);
+  const [imagesArray, setImagesArray] = React.useState([]);
+
   console.log(images);
 
+  images.map((image, index) =>
+    setImagesArray([...imagesArray, image.file.base64_file])
+  );
+
+  console.log("Images Array", imagesArray);
   return (
     <main>
       <Container
