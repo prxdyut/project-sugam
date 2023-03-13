@@ -57,11 +57,12 @@ export default function DoubtsNewContainer() {
   const [imagesArray, setImagesArray] = React.useState([]);
 
   console.log(images);
-
-  images.map((image, index) =>
-    setImagesArray([...imagesArray, { src: `${image.base64_file}` }])
-  );
-
+  const handleImages = (e) => {
+    setImages(e);
+    e.map((image, index) =>
+      setImagesArray([...imagesArray, { src: `${image.base64_file}` }])
+    );
+  };
   console.log("Images Array", imagesArray);
   return (
     <main>
@@ -101,7 +102,7 @@ export default function DoubtsNewContainer() {
           <div>
             {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
           </div>
-          <ImageUploader onChange={setImages} />
+          <ImageUploader onChange={handleImages} />
           <ImageView
             images={[
               { src: "https://picsum.photos/200/300" },
