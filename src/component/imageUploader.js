@@ -29,7 +29,6 @@ export default function ImageUploader({ onChange }) {
   return (
     <div>
       <ReactImageFileToBase64
-        multiple
         onCompleted={handleOnCompleted}
         CustomisedButton={CustomisedButton}
       />
