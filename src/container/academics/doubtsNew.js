@@ -69,6 +69,7 @@ export default function DoubtsNewContainer() {
         <Typography variant="h6" sx={{ my: 1 }}>
           New Doubt
         </Typography>
+        {console.log(images)}
         <Stack sx={{ my: 1 }} spacing={2}>
           <TextField select label="Subject">
             {[...Array(7)].map((u, i) => (
