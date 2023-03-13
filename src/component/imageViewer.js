@@ -64,7 +64,6 @@ export default function FullScreenDialog({ images, children }) {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-  console.log(images);
   return (
     <Box sx={{ display: "flex" }}>
       <div onClick={handleClickOpen}>{children}</div>

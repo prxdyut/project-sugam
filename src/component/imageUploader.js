@@ -11,7 +11,6 @@ export default function ImageUploader({ onChange }) {
 
   const handleOnCompleted = (files) => {
     onChange(files);
-          alert("uploaded");
   };
 
   const CustomisedButton = ({ triggerInput }) => {
@@ -20,8 +19,7 @@ export default function ImageUploader({ onChange }) {
         variant="outlined"
         type="upload"
         onClick={() => {
-          triggerInput();
-          alert("uploading");
+          triggerInput()
         }}
       >
         <UploadFileRounded /> &nbsp; Upload

@@ -48,13 +48,17 @@ export default function DoubtsNewContainer() {
   const handleToggleButtonValue = (event, newValue) => {
     setToggleButtonValue(newValue);
   };
-  
- const [alert, setAlert] = React.useState(null);
+
+  const [alert, setAlert] = React.useState(null);
 
   console.log(files);
 
   const [images, setImages] = React.useState([]);
   console.log(images);
+  console.log(images);
+  console.log(images);
+  console.log(images);
+
   return (
     <main>
       <Container
