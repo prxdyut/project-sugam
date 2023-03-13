@@ -118,8 +118,8 @@ export default function FullScreenDialog({ images, children }) {
                     transition: "scale 0.2s",
                     transformOrigin: "0 0",
                   }}
-                  src={images[activeStep].src}
-                  alt={images[activeStep].src}
+                  src={images[activeStep]}
+                  alt={images[activeStep]}
                 />
               </div>
             </div>

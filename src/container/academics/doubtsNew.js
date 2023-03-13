@@ -60,7 +60,7 @@ export default function DoubtsNewContainer() {
   const handleImages = (e) => {
     setImages(e);
     e.map((image, index) =>
-      setImagesArray([...imagesArray, { src: `${image.base64_file}` }])
+      setImagesArray([...imagesArray,  `${image.base64_file}`])
     );
   };
   console.log("Images Array", imagesArray);
@@ -103,26 +103,20 @@ export default function DoubtsNewContainer() {
             {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
           </div>
           <ImageUploader onChange={handleImages} />
-          <ImageView
-            images={[
-              { src: "https://picsum.photos/200/300" },
-              { src: "https://picsum.photos/200/400" },
-              { src: "https://picsum.photos/200/350" },
-            ]}
-          >
+          <ImageView images={imagesArray}>
             <ImageList
               sx={{ width: "100%", height: "max-content", mt: 1 }}
               variant="masonry"
               cols={3}
               gap={8}
             >
-              {images.map((file, index) => (
+              {imagesArray.map((file, index) => (
                 <ImageListItem key={index}>
                   {/* <ImagePreview img={file.base64_file} /> */}
                   <img
-                    src={`${file.base64_file}`}
-                    srcSet={`${file.base64_file}`}
-                    alt={file.base64_file}
+                    src={`${file}`}
+                    srcSet={`${file}`}
+                    alt={file}
                     loading="lazy"
                   />
                 </ImageListItem>
