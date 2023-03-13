@@ -59,7 +59,7 @@ export default function DoubtsNewContainer() {
   console.log(images);
 
   images.map((image, index) =>
-    setImagesArray([...imagesArray, image.base64_file])
+    setImagesArray([...imagesArray, { src: `${image.base64_file}` }])
   );
 
   console.log("Images Array", imagesArray);
