@@ -110,7 +110,6 @@ export default function DoubtsNewContainer() {
                     srcSet={`${file.base64_file}`}
                     alt={file.base64_file}
                     loading="lazy"
-                    onClick={preview}
                   />
                 </ImageListItem>
               ))}
