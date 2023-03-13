@@ -10,6 +10,7 @@ import { ToggleButton } from "@mui/material";
 // import dynamic from "next/dynamic";
 import TextEditor from "../../component/textEditor";
 import ImageUploader from "../../component/imageUploader";
+import Alert from "../../component/alert";
 // import "react-quill/dist/quill.snow.css";
 import {
   ToggleButtonGroup,
@@ -47,6 +48,7 @@ export default function DoubtsNewContainer() {
   const handleToggleButtonValue = (event, newValue) => {
     setToggleButtonValue(newValue);
   };
+
   console.log(files);
 
   const [images, setImages] = React.useState([]);
@@ -115,6 +117,7 @@ export default function DoubtsNewContainer() {
               ))}
             </ImageList>
           </ImageView>
+          <Alert title="There's a Problem i guess" />
         </Stack>
       </Container>
     </main>
