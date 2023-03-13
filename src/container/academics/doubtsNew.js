@@ -50,7 +50,7 @@ export default function DoubtsNewContainer() {
   console.log(files);
 
   const [images, setImages] = React.useState([]);
-
+  console.log(images);
   return (
     <main>
       <Container
