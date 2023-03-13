@@ -14,7 +14,7 @@ export default function ShowAlert({ title }) {
   }, []);
 
   return (
-    <Slide in={show} appear={false}>
+    <Slide in={show} appear={false} direction="up">
       <Alert onClose={() => setShow(false)}>title</Alert>
     </Slide>
   );

@@ -11,11 +11,19 @@ export default function ImageUploader({ onChange }) {
 
   const handleOnCompleted = (files) => {
     onChange(files);
+          alert("uploaded");
   };
 
   const CustomisedButton = ({ triggerInput }) => {
     return (
-      <Button variant="outlined" type="upload" onClick={triggerInput}>
+      <Button
+        variant="outlined"
+        type="upload"
+        onClick={() => {
+          triggerInput();
+          alert("uploading");
+        }}
+      >
         <UploadFileRounded /> &nbsp; Upload
       </Button>
     );

@@ -48,6 +48,8 @@ export default function DoubtsNewContainer() {
   const handleToggleButtonValue = (event, newValue) => {
     setToggleButtonValue(newValue);
   };
+  
+ const [alert, setAlert] = React.useState(null);
 
   console.log(files);
 
@@ -117,7 +119,7 @@ export default function DoubtsNewContainer() {
               ))}
             </ImageList>
           </ImageView>
-          <Alert title="There's a Problem i guess" />
+          <Alert title={alert} />
         </Stack>
       </Container>
     </main>
