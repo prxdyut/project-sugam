@@ -26,7 +26,6 @@ export default function ImageUploader({ onChange }) {
     setLoading(true);
     files.map((file) => {
       fr.readAsArrayBuffer(file);
-      fr.onload = function () {
         // you can keep blob or save blob to another position
         const blob = new Blob([fr.result]);
 
@@ -41,7 +40,6 @@ export default function ImageUploader({ onChange }) {
         setLoading(false);
         console.log(url);
         alert(url);
-      };
     });
   
 
