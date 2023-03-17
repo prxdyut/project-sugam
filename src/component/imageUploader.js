@@ -21,7 +21,7 @@ export default function ImageUploader({ onChange }) {
     const files = e.target.files;
     console.log(files);
     setImages([...images, files]);
-    convertFileToBlob(files);
+
     const fr = new FileReader();
     setLoading(true);
     files.map((file) => {
