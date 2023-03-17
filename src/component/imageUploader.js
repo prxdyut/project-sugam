@@ -18,14 +18,11 @@ export default function ImageUploader({ onChange }) {
   const [loading, setLoading] = React.useState(false);
 
   const handleOnSelect = (e) => {
-    console.log(e.target.files);
+    const files = e.target.files;
+    console.log(files);
     setImages([...images, files]);
-    convertFileToBlob(e.target.files);
-  };
-
-  const convertFileToBlob = (files) => {
+    convertFileToBlob(files);
     const fr = new FileReader();
-
     setLoading(true);
     files.map((file) => {
       fr.readAsArrayBuffer(file);
@@ -46,7 +43,8 @@ export default function ImageUploader({ onChange }) {
         alert(url);
       };
     });
-  };
+  
+
 
   return (
     <div>
