@@ -25,10 +25,8 @@ export default function ImageUploader({ onChange }) {
     setLoading(true);
     files.map((file) => {
       fr.readAsArrayBuffer(file);
-      // you can keep blob or save blob to another position
       const blob = new Blob([fr.result]);
 
-      // url for download
       const url = URL.createObjectURL(blob, { type: "image/png" });
       const a = document.createElement("a");
       a.href = url;
