@@ -31,7 +31,7 @@ import Chip from "@mui/material/Chip";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -52,9 +52,9 @@ export default function ScheduleContainer() {
       >
         <Box sx={{}}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <CalendarPicker
-              date={date}
-              onChange={(newDate) => setDate(newDate)}
+            <DateCalendar
+            // date={date}
+            // onChange={(newDate) => setDate(newDate)}
             />
           </LocalizationProvider>
         </Box>

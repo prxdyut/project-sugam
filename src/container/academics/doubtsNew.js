@@ -30,9 +30,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import DecreaseIcon from "@mui/icons-material/RemoveCircleOutline";
 import IncreaseIcon from "@mui/icons-material/AddCircleOutline";
 import { UploadFileRounded } from "@mui/icons-material";
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import ReactImageFileToBase64 from "react-file-image-to-base64";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
 import ImageView from "../../component/imageViewer";
 
@@ -57,7 +54,7 @@ export default function DoubtsNewContainer() {
   const [imagesArray, setImagesArray] = React.useState([]);
 
   console.log(images);
-  
+
   const handleImages = (e) => {
     setImages(e);
     e.map((image, index) =>
@@ -75,7 +72,6 @@ export default function DoubtsNewContainer() {
         <Typography variant="h6" sx={{ my: 1 }}>
           New Doubt
         </Typography>
-        {console.log(images)}
         <Stack sx={{ my: 1 }} spacing={2}>
           <TextField select label="Subject">
             {[...Array(7)].map((u, i) => (
@@ -104,7 +100,7 @@ export default function DoubtsNewContainer() {
             {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
           </div>
           <ImageUploader onChange={handleImages} />
-          <ImageView images={imagesArray}>
+          {/* <ImageView images={imagesArray}>
             <ImageList
               sx={{ width: "100%", height: "max-content", mt: 1 }}
               variant="masonry"
@@ -113,7 +109,6 @@ export default function DoubtsNewContainer() {
             >
               {imagesArray.map((file, index) => (
                 <ImageListItem key={index}>
-                  {/* <ImagePreview img={file.base64_file} /> */}
                   <img
                     src={`${file}`}
                     srcSet={`${file}`}
@@ -123,8 +118,7 @@ export default function DoubtsNewContainer() {
                 </ImageListItem>
               ))}
             </ImageList>
-          </ImageView>
-          <Alert title={alert} />
+          </ImageView> */}
         </Stack>
       </Container>
     </main>

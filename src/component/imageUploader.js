@@ -1,37 +1,89 @@
 import * as React from "react";
 
-import { Button } from "@mui/material";
-import { UploadFileRounded } from "@mui/icons-material";
+import { Button, Box } from "@mui/material";
+import {
+  FormatColorResetRounded,
+  TroubleshootRounded,
+  TroubleshootSharp,
+  UploadFileRounded,
+} from "@mui/icons-material";
 import ReactImageFileToBase64 from "react-file-image-to-base64";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
+
+import Masonry from "@mui/lab/Masonry";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 export default function ImageUploader({ onChange }) {
-  //   const [images, setImages] = React.useState([]);
+  const [images, setImages] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
-  const handleOnCompleted = (files) => {
-    onChange(files);
+  const handleOnSelect = (e) => {
+    console.log(e.target.files);
+    setImages([...images, files]);
+    convertFileToBlob(e.target.files);
   };
 
-  const CustomisedButton = ({ triggerInput }) => {
-    return (
-      <Button
-        variant="outlined"
-        type="upload"
-        onClick={() => {
-          triggerInput()
-        }}
-      >
-        <UploadFileRounded /> &nbsp; Upload
-      </Button>
-    );
+  const convertFileToBlob = (files) => {
+    const fr = new FileReader();
+
+    setLoading(true);
+    files.map((file) => {
+      fr.readAsArrayBuffer(file);
+      fr.onload = function () {
+        // you can keep blob or save blob to another position
+        const blob = new Blob([fr.result]);
+
+        // url for download
+        const url = URL.createObjectURL(blob, { type: "image/png" });
+        const a = document.createElement("a");
+        a.href = url;
+        a.target='_blank';
+        a.download = "image";
+        a.click();
+
+        setLoading(false);
+        console.log(url);
+        alert(url);
+      };
+    });
   };
+
   return (
     <div>
-      <ReactImageFileToBase64
-        onCompleted={handleOnCompleted}
-        CustomisedButton={CustomisedButton}
-      />
+      <input id="upload-image" type="file" onChange={handleOnSelect} multiple />
+      <LoadingButton
+        loading={loading}
+        loadingPosition="start"
+        startIcon={<UploadFileRounded />}
+        variant="outlined"
+        type="upload"
+        onClick={() => document.getElementById("upload-image").click()}
+      >
+        Upload
+      </LoadingButton>
+      {JSON.stringify(images)}
+      <Box sx={{ width: "100%", minHeight: 829 }}>
+        <Masonry columns={3} spacing={2}>
+          {images.map((item, index) => (
+            <div key={index}>
+              <a href={item.base64_file} target="_blank" rel="noreferrer">
+                <img
+                  src={`${item.base64_file}`}
+                  srcSet={`${item.base64_file}`}
+                  alt={item.title}
+                  loading="lazy"
+                  style={{
+                    borderBottomLeftRadius: 4,
+                    borderBottomRightRadius: 4,
+                    display: "block",
+                    width: "100%",
+                  }}
+                />
+              </a>
+            </div>
+          ))}
+        </Masonry>
+      </Box>
     </div>
   );
 }

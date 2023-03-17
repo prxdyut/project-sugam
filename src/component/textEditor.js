@@ -6,12 +6,11 @@ import Container from "@mui/material/Container";
 import dynamic from "next/dynamic";
 
 import "react-quill/dist/quill.snow.css";
-
+const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 const TextEditor = ({ onChange, style, placeholder, theme }) => {
-  const ReactQuill = React.useMemo(
-    () => dynamic(() => import("react-quill"), { ssr: false }),
-    []
-  );
   const modules = {
     toolbar: [
       [{ font: [] }],
@@ -48,8 +47,8 @@ const TextEditor = ({ onChange, style, placeholder, theme }) => {
   ];
   return (
     <Box>
-      <ReactQuill
-        theme={theme ? theme : "snow"}
+      <QuillNoSSRWrapper
+        theme="snow"
         onChange={onChange}
         modules={modules}
         formats={formats}
