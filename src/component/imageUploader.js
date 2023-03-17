@@ -16,11 +16,10 @@ import SaveIcon from "@mui/icons-material/Save";
 export default function ImageUploader({ onChange }) {
   const [images, setImages] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-
+  console.log(images);
   const handleOnSelect = (e) => {
     const files = e.target.files;
     console.log(files);
-    setImages([...images, files]);
 
     const fr = new FileReader();
     setLoading(true);
@@ -36,6 +35,7 @@ export default function ImageUploader({ onChange }) {
       a.target = "_blank";
       a.download = "image";
       a.click();
+      setImages([...images, { base64_file: `${blob}` }]);
 
       setLoading(false);
       console.log(url);
