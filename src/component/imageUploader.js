@@ -21,11 +21,15 @@ export default function ImageUploader({ onChange }) {
   console.log(images);
   console.log(blobURLs);
 
+  const buffer = (action) => {
+    action == "start" && setLoading(true);
+    action == "stop" && setTimeoutime(() => setLoading(false), 2500);
+  };
+
   const handleOnSelect = (e) => {
-    setLoading(true);
+    buffer("start");
     const files = e.target.files;
     const filesArray = Object.keys(files).map((key) => files[key]);
-    console.log(filesArray);
     filesArray.map((file) => {
       setImages(file);
 
@@ -56,7 +60,7 @@ export default function ImageUploader({ onChange }) {
       var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
       rd.readAsArrayBuffer(chunk); // read file object
     });
-    setLoading(false);
+    buffer("stop");
   };
 
   return (
