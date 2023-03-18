@@ -23,23 +23,22 @@ export default function ImageUploader({ onChange }) {
 
   const buffer = (action) => {
     action == "start" && setLoading(true);
-    action == "stop" && setTimeoutime(() => setLoading(false), 250);
+    action == "stop" && setTimeoutime(() => setLoading(false), 100);
   };
 
   const handleOnSelect = (e) => {
     buffer("start");
     const files = e.target.files;
+
     const filesArray = Object.keys(files).map((key) => files[key]);
     filesArray.map((file) => {
       setImages(file);
 
       if (!file) {
         console.log("nothing here");
-        return;
       }
 
       let start = performance.now();
-
       var mime = file.type, // store mime for later
         rd = new FileReader(); // create a FileReader
 
@@ -49,6 +48,7 @@ export default function ImageUploader({ onChange }) {
           }),
           url = URL.createObjectURL(blob),
           img = new Image();
+
         console.log(url);
         setBlobURLs([...blobURLs, { src: `${url}` }]);
         img.onload = function () {
