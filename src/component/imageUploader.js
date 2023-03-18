@@ -31,7 +31,38 @@ export default function ImageUploader({ onChange }) {
     const files = e.target.files;
 
     const filesArray = Object.keys(files).map((key) => files[key]);
-    filesArray.map((file) => {
+    // filesArray.map((file) => {
+    //   setImages(file);
+
+    //   if (!file) {
+    //     console.log("nothing here");
+    //   }
+
+    //   let start = performance.now();
+    //   var mime = file.type, // store mime for later
+    //     rd = new FileReader(); // create a FileReader
+
+    //   rd.onload = function (e) {
+    //     var blob = new Blob([e.target.result], {
+    //         type: mime,
+    //       }),
+    //       url = URL.createObjectURL(blob),
+    //       img = new Image();
+
+    //     console.log(url);
+    //     setBlobURLs([...blobURLs, { src: `${url}` }]);
+    //     img.onload = function () {
+    //       URL.revokeObjectURL(this.src); // clean-up memory
+    //       console.log(start - performance.now()); // add image to DOM
+    //     };
+    //   };
+
+    //   var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
+    //   rd.readAsArrayBuffer(chunk); // read file object
+    // });
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+
       setImages(file);
 
       if (!file) {
@@ -59,7 +90,7 @@ export default function ImageUploader({ onChange }) {
 
       var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
       rd.readAsArrayBuffer(chunk); // read file object
-    });
+    }
     buffer("stop");
   };
 
@@ -76,7 +107,6 @@ export default function ImageUploader({ onChange }) {
       >
         Upload
       </LoadingButton>
-      {JSON.stringify(blobURLs)}
       <Box sx={{ width: "100%", minHeight: 829 }}>
         <Masonry columns={3} spacing={2}>
           {blobURLs.map((item, index) => (
