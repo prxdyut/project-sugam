@@ -23,7 +23,7 @@ export default function ImageUploader({ onChange }) {
 
   const buffer = (action) => {
     action == "start" && setLoading(true);
-    action == "stop" && setTimeoutime(() => setLoading(false), 2500);
+    action == "stop" && setTimeoutime(() => setLoading(false), 250);
   };
 
   const handleOnSelect = (e) => {
