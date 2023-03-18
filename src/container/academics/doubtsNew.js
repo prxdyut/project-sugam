@@ -29,7 +29,6 @@ import IncreaseIcon from "@mui/icons-material/AddCircleOutline";
 import { UploadFileRounded } from "@mui/icons-material";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
 
-
 export default function DoubtsNewContainer() {
   const [toggleButtonValue, setToggleButtonValue] = React.useState(() => [
     "tutors",
@@ -52,13 +51,13 @@ export default function DoubtsNewContainer() {
 
   console.log(images);
 
-  // const handleImages = (e) => {
-  //   setImages(e);
-  //   e.map((image, index) =>
-  //     setImagesArray([...imagesArray, `${image.base64_file}`])
-  //   );
-  // };
-  // console.log("Images Array", imagesArray);
+  const handleImages = (e) => {
+    setImages(e);
+    e.map((image, index) =>
+      setImagesArray([...imagesArray, `${image.base64_file}`])
+    );
+  };
+  console.log("Images Array", imagesArray);
   return (
     <main>
       <Container
