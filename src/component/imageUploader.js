@@ -13,7 +13,7 @@ import Masonry from "@mui/lab/Masonry";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 
-export default function ImageUploader({ onChange }) {
+export default function ImageUploader() {
   const [images, setImages] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [blobURLs, setBlobURLs] = React.useState([]);
@@ -23,46 +23,16 @@ export default function ImageUploader({ onChange }) {
 
   const buffer = (action) => {
     action == "start" && setLoading(true);
-    action == "stop" && setTimeoutime(() => setLoading(false), 100);
+    action == "stop" && setLoading(false);
   };
 
   const handleOnSelect = (e) => {
     buffer("start");
     const files = e.target.files;
-
     const filesArray = Object.keys(files).map((key) => files[key]);
-    // filesArray.map((file) => {
-    //   setImages(file);
+    var localBlobURLsArray = [];
 
-    //   if (!file) {
-    //     console.log("nothing here");
-    //   }
-
-    //   let start = performance.now();
-    //   var mime = file.type, // store mime for later
-    //     rd = new FileReader(); // create a FileReader
-
-    //   rd.onload = function (e) {
-    //     var blob = new Blob([e.target.result], {
-    //         type: mime,
-    //       }),
-    //       url = URL.createObjectURL(blob),
-    //       img = new Image();
-
-    //     console.log(url);
-    //     setBlobURLs([...blobURLs, { src: `${url}` }]);
-    //     img.onload = function () {
-    //       URL.revokeObjectURL(this.src); // clean-up memory
-    //       console.log(start - performance.now()); // add image to DOM
-    //     };
-    //   };
-
-    //   var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
-    //   rd.readAsArrayBuffer(chunk); // read file object
-    // });
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-
+    filesArray.map((file) => {
       setImages(file);
 
       if (!file) {
@@ -81,7 +51,8 @@ export default function ImageUploader({ onChange }) {
           img = new Image();
 
         console.log(url);
-        setBlobURLs([...blobURLs, { src: `${url}` }]);
+        setBlobURLs([...blobURLs, ...localBlobURLsArray, { src: `${url}` }]);
+        localBlobURLsArray.push({ src: `${url}` });
         img.onload = function () {
           URL.revokeObjectURL(this.src); // clean-up memory
           console.log(start - performance.now()); // add image to DOM
@@ -90,8 +61,38 @@ export default function ImageUploader({ onChange }) {
 
       var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
       rd.readAsArrayBuffer(chunk); // read file object
-    }
-    buffer("stop");
+    });
+
+    //   for (let i = 0; i < files.length; i++) {
+    //     let file = files[i];
+    //     setImages(file);
+    //     if (!file) {
+    //       console.log("nothing here");
+    //     }
+    //     let start = performance.now();
+    //     var mime = file.type, // store mime for later
+    //       rd = new FileReader(); // create a FileReader
+
+    //     rd.onload = function (e) {
+    //       var blob = new Blob([e.target.result], {
+    //           type: mime,
+    //         }),
+    //         url = URL.createObjectURL(blob),
+    //         img = new Image();
+
+    //       console.log(url);
+    //       setBlobURLs([...blobURLs, { src: `${url}` }]);
+    //       img.onload = function () {
+    //         URL.revokeObjectURL(this.src); // clean-up memory
+    //         console.log(start - performance.now()); // add image to DOM
+    //       };
+    //     };
+
+    //     var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
+    //     rd.readAsArrayBuffer(chunk); // read file object
+    //   }
+    //   buffer("stop");
+    // };
   };
 
   return (
