@@ -16,29 +16,47 @@ import SaveIcon from "@mui/icons-material/Save";
 export default function ImageUploader({ onChange }) {
   const [images, setImages] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [blobURLs, setBlobURLs] = React.useState([]);
+
   console.log(images);
+  console.log(blobURLs);
+
   const handleOnSelect = (e) => {
-    const files = e.target.files;
-    console.log(files);
-
-    const fr = new FileReader();
     setLoading(true);
-    files.map((file) => {
-      fr.readAsArrayBuffer(file);
-      const blob = new Blob([fr.result]);
+    const files = e.target.files;
+    const filesArray = Object.keys(files).map((key) => files[key]);
+    console.log(filesArray);
+    filesArray.map((file) => {
+      setImages(file);
 
-      const url = URL.createObjectURL(blob, { type: "image/png" });
-      const a = document.createElement("a");
-      a.href = url;
-      a.target = "_blank";
-      a.download = "image";
-      a.click();
-      setImages([...images, { base64_file: `${blob}` }]);
+      if (!file) {
+        console.log("nothing here");
+        return;
+      }
 
-      setLoading(false);
-      console.log(url);
-      alert(url);
+      let start = performance.now();
+
+      var mime = file.type, // store mime for later
+        rd = new FileReader(); // create a FileReader
+
+      rd.onload = function (e) {
+        var blob = new Blob([e.target.result], {
+            type: mime,
+          }),
+          url = URL.createObjectURL(blob),
+          img = new Image();
+        console.log(url);
+        setBlobURLs([...blobURLs, { src: `${url}` }]);
+        img.onload = function () {
+          URL.revokeObjectURL(this.src); // clean-up memory
+          console.log(start - performance.now()); // add image to DOM
+        };
+      };
+
+      var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
+      rd.readAsArrayBuffer(chunk); // read file object
     });
+    setLoading(false);
   };
 
   return (
@@ -54,15 +72,15 @@ export default function ImageUploader({ onChange }) {
       >
         Upload
       </LoadingButton>
-      {JSON.stringify(images)}
+      {JSON.stringify(blobURLs)}
       <Box sx={{ width: "100%", minHeight: 829 }}>
         <Masonry columns={3} spacing={2}>
-          {images.map((item, index) => (
+          {blobURLs.map((item, index) => (
             <div key={index}>
-              <a href={item.base64_file} target="_blank" rel="noreferrer">
+              <a href={item.src} target="_blank" rel="noreferrer">
                 <img
-                  src={`${item.base64_file}`}
-                  srcSet={`${item.base64_file}`}
+                  src={`${item.src}`}
+                  srcSet={`${item.src}`}
                   alt={item.title}
                   loading="lazy"
                   style={{

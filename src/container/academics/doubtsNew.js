@@ -6,12 +6,9 @@ import Typography from "@mui/material/Typography";
 import { MenuItem, Stack } from "@mui/material";
 import ReturnSubject from "../../function/getSubject";
 import { ToggleButton } from "@mui/material";
-// import NoSsr from "@mui/base/NoSsr";
-// import dynamic from "next/dynamic";
 import TextEditor from "../../component/textEditor";
 import ImageUploader from "../../component/imageUploader";
 import Alert from "../../component/alert";
-// import "react-quill/dist/quill.snow.css";
 import {
   ToggleButtonGroup,
   Box,
@@ -31,7 +28,7 @@ import DecreaseIcon from "@mui/icons-material/RemoveCircleOutline";
 import IncreaseIcon from "@mui/icons-material/AddCircleOutline";
 import { UploadFileRounded } from "@mui/icons-material";
 import { Divider, ImageList, ImageListItem, Fade, Grow } from "@mui/material";
-import ImageView from "../../component/imageViewer";
+
 
 export default function DoubtsNewContainer() {
   const [toggleButtonValue, setToggleButtonValue] = React.useState(() => [
@@ -55,13 +52,13 @@ export default function DoubtsNewContainer() {
 
   console.log(images);
 
-  const handleImages = (e) => {
-    setImages(e);
-    e.map((image, index) =>
-      setImagesArray([...imagesArray, `${image.base64_file}`])
-    );
-  };
-  console.log("Images Array", imagesArray);
+  // const handleImages = (e) => {
+  //   setImages(e);
+  //   e.map((image, index) =>
+  //     setImagesArray([...imagesArray, `${image.base64_file}`])
+  //   );
+  // };
+  // console.log("Images Array", imagesArray);
   return (
     <main>
       <Container
