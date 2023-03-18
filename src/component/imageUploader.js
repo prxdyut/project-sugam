@@ -23,17 +23,17 @@ export default function ImageUploader() {
 
   const buffer = (action) => {
     action == "start" && setLoading(true);
-    action == "stop" && setLoading(false);
+    action == "end" && setLoading(false);
   };
 
   const handleOnSelect = (e) => {
-    buffer("start");
     const files = e.target.files;
     const filesArray = Object.keys(files).map((key) => files[key]);
     var localBlobURLsArray = [];
 
     filesArray.map((file) => {
       setImages(file);
+      buffer("start");
 
       if (!file) {
         console.log("nothing here");
@@ -53,6 +53,7 @@ export default function ImageUploader() {
         console.log(url);
         setBlobURLs([...blobURLs, ...localBlobURLsArray, { src: `${url}` }]);
         localBlobURLsArray.push({ src: `${url}` });
+        buffer("end");
         img.onload = function () {
           URL.revokeObjectURL(this.src); // clean-up memory
           console.log(start - performance.now()); // add image to DOM
@@ -62,37 +63,6 @@ export default function ImageUploader() {
       var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
       rd.readAsArrayBuffer(chunk); // read file object
     });
-
-    //   for (let i = 0; i < files.length; i++) {
-    //     let file = files[i];
-    //     setImages(file);
-    //     if (!file) {
-    //       console.log("nothing here");
-    //     }
-    //     let start = performance.now();
-    //     var mime = file.type, // store mime for later
-    //       rd = new FileReader(); // create a FileReader
-
-    //     rd.onload = function (e) {
-    //       var blob = new Blob([e.target.result], {
-    //           type: mime,
-    //         }),
-    //         url = URL.createObjectURL(blob),
-    //         img = new Image();
-
-    //       console.log(url);
-    //       setBlobURLs([...blobURLs, { src: `${url}` }]);
-    //       img.onload = function () {
-    //         URL.revokeObjectURL(this.src); // clean-up memory
-    //         console.log(start - performance.now()); // add image to DOM
-    //       };
-    //     };
-
-    //     var chunk = file.slice(0, 1024 * 1024 * 10); // .5MB
-    //     rd.readAsArrayBuffer(chunk); // read file object
-    //   }
-    //   buffer("stop");
-    // };
   };
 
   return (
