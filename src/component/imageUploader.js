@@ -160,7 +160,7 @@ export default function ImageUploader({ onImageUpload }) {
                   edge="end"
                   aria-label="delete"
                   onClick={() => handleDelete(index)}
-                  sx={{ mr: 0 }}
+                  sx={{ mr: -1 }}
                 >
                   <CancelIcon />
                 </IconButton>
