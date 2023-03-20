@@ -95,7 +95,7 @@ export default function DoubtsNewContainer() {
           <div>
             {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
           </div>
-          <ImageUploader onChange={handleImages} />
+          <ImageUploader onImageUpload={handleImages} />
           {/* <ImageView images={imagesArray}>
             <ImageList
               sx={{ width: "100%", height: "max-content", mt: 1 }}
