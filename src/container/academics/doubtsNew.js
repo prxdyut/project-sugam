@@ -44,8 +44,6 @@ export default function DoubtsNewContainer() {
 
   const [alert, setAlert] = React.useState(null);
 
-  console.log(files);
-
   const [images, setImages] = React.useState([]);
 
   console.log(images);
@@ -88,29 +86,7 @@ export default function DoubtsNewContainer() {
             onChange={setEditorCode}
             placeholder={"Explain your Doubt in Detail"}
           />
-          <div>
-            {/* <ReactImageFileToBase64 multiple onCompleted={handleOnCompleted} /> */}
-          </div>
           <ImageUploader onImageUpload={handleImages} />
-          {/* <ImageView images={imagesArray}>
-            <ImageList
-              sx={{ width: "100%", height: "max-content", mt: 1 }}
-              variant="masonry"
-              cols={3}
-              gap={8}
-            >
-              {imagesArray.map((file, index) => (
-                <ImageListItem key={index}>
-                  <img
-                    src={`${file}`}
-                    srcSet={`${file}`}
-                    alt={file}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </ImageView> */}
         </Stack>
       </Container>
     </main>

@@ -31,7 +31,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-export default function ImageUploader({onImageUpload}) {
+export default function ImageUploader({ onImageUpload }) {
   const [loading, setLoading] = React.useState(false);
   const [blobData, setBlobData] = React.useState([]);
   const [data, setData] = React.useState([]);
@@ -39,7 +39,7 @@ export default function ImageUploader({onImageUpload}) {
   React.useEffect(() => {
     setData([...blobData.filter((item, i) => item.deleted != true)]);
   }, [blobData]);
-  
+
   React.useEffect(() => {
     onImageUpload([...data]);
   }, [data]);
@@ -147,6 +147,11 @@ export default function ImageUploader({onImageUpload}) {
             direction={!item.deleted ? "right" : "left"}
             mountOnEnter
             unmountOnExit
+            timeout={
+              !item.deleted
+                ? index * 250 + Math.floor(Math.random() * 100)
+                : 100
+            }
           >
             <ListItem
               disablePadding
@@ -156,7 +161,7 @@ export default function ImageUploader({onImageUpload}) {
                   aria-label="delete"
                   onClick={() => handleDelete(index)}
                 >
-                  <CancelIcon />
+                  <CancelIcon sx={{ mr: -1 }} />
                 </IconButton>
               }
             >
@@ -173,7 +178,12 @@ export default function ImageUploader({onImageUpload}) {
               <ListItemText
                 primary={
                   <InputBase
-                    sx={{ ml: 1, flex: 1 }}
+                    fullWidth
+                    sx={{
+                      flex: 1,
+                      width: "calc(100% - 24px - 8px*2)",
+                      marginLeft: "0",
+                    }}
                     defaultValue={item.name}
                     placeholder={`this can't be empty`}
                     onChange={(e) => {

@@ -147,6 +147,11 @@ export default function ImageUploader({ onImageUpload }) {
             direction={!item.deleted ? "right" : "left"}
             mountOnEnter
             unmountOnExit
+            timeout={
+              !item.deleted
+                ? index * 250 + Math.floor(Math.random() * 100)
+                : 100
+            }
           >
             <ListItem
               disablePadding
@@ -156,7 +161,7 @@ export default function ImageUploader({ onImageUpload }) {
                   aria-label="delete"
                   onClick={() => handleDelete(index)}
                 >
-                  <CancelIcon />
+                  <CancelIcon sx={{ mr: -1 }} />
                 </IconButton>
               }
             >
