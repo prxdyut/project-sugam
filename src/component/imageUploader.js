@@ -149,7 +149,7 @@ export default function ImageUploader({ onImageUpload }) {
             unmountOnExit
             timeout={
               !item.deleted
-                ? index * 250 + Math.floor(Math.random() * 100)
+                ? index * 250 + Math.floor(Math.random() * 1000)
                 : 100
             }
           >
