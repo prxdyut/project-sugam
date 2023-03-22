@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
   Button,
+  Container,
   Box,
   IconButton,
   List,
@@ -10,10 +11,15 @@ import {
   ListItemAvatar,
   ListItemIcon,
   ListItemText,
+  Badge,
   Divider,
   Avatar,
   InputBase,
   Slide,
+  Dialog,
+  AppBar,
+  Toolbar,
+  Typography,
 } from "@mui/material";
 import {
   FormatColorResetRounded,
@@ -26,14 +32,85 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import { deepOrange, green } from "@mui/material/colors";
 
+import CloseIcon from "@mui/icons-material/Close";
 import Masonry from "@mui/lab/Masonry";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-export default function ImageUploader({ onImageUpload }) {
+export default function ImageUploader({ setImageUpload, widget, button }) {
+  const [totalUploads, setTotalUploads] = React.useState([]);
+  const imageUploaded = (e) => {
+    setImageUpload(e);
+    setTotalUploads(e);
+  };
+
+  const showWidget = (
+    <Widget onImageUpload={imageUploaded} uploads={totalUploads} />
+  );
+  const showButtonDialogWidget = (
+    <FullScreenDialog uploads={totalUploads}>
+      <Container>{showWidget}</Container>
+    </FullScreenDialog>
+  );
+  return widget ? showWidget : button ? showButtonDialogWidget : showWidget;
+}
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function FullScreenDialog({ children, uploads }) {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <IconButton variant="outlined" onClick={handleClickOpen}>
+        <Badge badgeContent={uploads.length} color="primary">
+          <UploadFileRounded />
+        </Badge>
+      </IconButton>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: "sticky", top: 0, mb: 2 }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Select Files
+            </Typography>
+            <Button autoFocus color="inherit" onClick={handleClose}>
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <div>{children}</div>
+      </Dialog>
+    </React.Fragment>
+  );
+}
+
+function Widget({ onImageUpload, uploads }) {
   const [loading, setLoading] = React.useState(false);
-  const [blobData, setBlobData] = React.useState([]);
+  const [blobData, setBlobData] = React.useState(uploads);
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
@@ -120,7 +197,7 @@ export default function ImageUploader({ onImageUpload }) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <input
         id="upload-image"
         type="file"
@@ -137,7 +214,7 @@ export default function ImageUploader({ onImageUpload }) {
         type="upload"
         onClick={() => document.getElementById("upload-image").click()}
       >
-        Upload
+        {uploads.length <= 0 ? `Upload` : `Uploads ( ${uploads.length} )`}
       </LoadingButton>
       <List>
         {blobData.map((item, index) => (
@@ -160,7 +237,7 @@ export default function ImageUploader({ onImageUpload }) {
                   edge="end"
                   aria-label="delete"
                   onClick={() => handleDelete(index)}
-                  sx={{ mr: -1 }}
+                  sx={{ mr: -2 }}
                 >
                   <CancelIcon />
                 </IconButton>
@@ -198,12 +275,12 @@ export default function ImageUploader({ onImageUpload }) {
                     }}
                   />
                 }
-                secondary={formatBytes(item.size) + " " + item.type}
+                secondary={`${formatBytes(item.size)} ${item.type}`}
               />
             </ListItem>
           </Slide>
         ))}
       </List>
-    </div>
+    </React.Fragment>
   );
 }

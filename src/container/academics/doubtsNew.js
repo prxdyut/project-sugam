@@ -86,7 +86,7 @@ export default function DoubtsNewContainer() {
             onChange={setEditorCode}
             placeholder={"Explain your Doubt in Detail"}
           />
-          <ImageUploader onImageUpload={handleImages} />
+          <ImageUploader setImageUpload={handleImages} />
         </Stack>
       </Container>
     </main>

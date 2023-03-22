@@ -210,5 +210,5 @@
 import Uploader from "../src/component/imageUploader";
 
 export default function ImageUploader() {
-  return <Uploader onImageUpload={(value) => alert(value)} />;
+  return <Uploader setImageUpload={(value) => console.log(value)} />;
 }
