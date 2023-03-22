@@ -11,19 +11,27 @@ import "react-quill/dist/quill.snow.css";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
-  loading: () => <Skeleton variant="rounded" height={88 + 18 + 12 * 2} />,
+  loading: () => (
+    <Stack gap={1}>
+      <Skeleton variant="rounded" height={18 + 12 * 2} />
+      <Skeleton variant="rounded" height={100} />
+    </Stack>
+  ),
 });
 
 const TextEditor = ({ onChange, style, placeholder, theme }) => {
   const modules = {
     toolbar: [
+      [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ["bold", "italic", "underline", "strike"], // toggled buttons
       ["blockquote", "code-block"],
+
       [{ header: 1 }, { header: 2 }], // custom button values
       [{ list: "ordered" }, { list: "bullet" }],
       [{ script: "sub" }, { script: "super" }], // superscript/subscript
       [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ direction: "rtl" }], // text direction
 
       [{ color: [] }, { background: [] }],
       [{ align: [] }],
