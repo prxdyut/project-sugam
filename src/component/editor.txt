@@ -66,14 +66,44 @@ function CustomizedDividers() {
   const [tools, setTools] = React.useState({
     bold: false,
     italic: false,
+    underline: false,
+    strike: false,
+    header: false,
+    list: {
+      number: false,
+      bullet: false,
+    },
+    script: {
+      sub: false,
+      sup: false,
+    },
+    align: "left",
   });
-
+  const [alignment, setAlignment] = React.useState("left");
+  const [script, setScript] = React.useState("");
+  const [list, setList] = React.useState("");
   const [format, setFormat] = React.useState(() => []);
+  const [color, setColor] = React.useState(() => []);
 
   console.log(format);
+  console.log(script);
+  console.log(alignment);
+  console.log(list);
+  console.log(color);
 
   const handleFormat = (event, newFormats) => {
     setFormat(newFormats);
+  };
+  const handleColor = (event, newFormats) => {
+    setColor(newFormats);
+  };
+
+  const handleScript = (event, newFormats) => {
+    setScript(newFormats);
+  };
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
   };
 
   const bold = document
@@ -84,11 +114,64 @@ function CustomizedDividers() {
     .getElementsByClassName("ql-italic")[0]
     .classList.contains("ql-active");
 
-  const updateTools = () => {
+  const underline = document
+    .getElementsByClassName("ql-underline")[0]
+    .classList.contains("ql-active");
+
+  const strike = document
+    .getElementsByClassName("ql-strike")[0]
+    .classList.contains("ql-active");
+
+  const header = document
+    .querySelector('.ql-header[value="1"]')
+    .classList.contains("ql-active");
+
+  const ordered = document
+    .querySelector('.ql-list[value="ordered"]')
+    .classList.contains("ql-active");
+
+  const bullet = document
+    .querySelector('.ql-list[value="bullet"]')
+    .classList.contains("ql-active");
+
+  const subscript = document
+    .querySelector('.ql-script[value="sub"]')
+    .classList.contains("ql-active");
+
+  const superscript = document
+    .querySelector('.ql-script[value="super"]')
+    .classList.contains("ql-active");
+
+  const align = document
+    .querySelector(".ql-align > .ql-picker-label")
+    .getAttribute("data-value");
+
+  const clean = document
+    .getElementsByClassName("ql-clean")[0]
+    .classList.contains("ql-active");
+
+  const handleList = (event, newAlignment) => {
+    setList(newAlignment);
+  };
+
+  const updateFormats = () => {
     setTools({
       ...format,
       bold,
       italic,
+      underline,
+      strike,
+      header,
+      list: {
+        ordered,
+        bullet,
+      },
+      script: {
+        sub: subscript,
+        super: superscript,
+      },
+      align,
+      clean,
     });
   };
 
@@ -183,7 +266,31 @@ function CustomizedDividers() {
 }
 
 const TextEditor = ({ onChange, style, placeholder, theme }) => {
-  // Toolbar Options
+  const [format, setFormat] = React.useState({
+    bold: false,
+    italic: false,
+    underline: false,
+    strike: false,
+    header: {
+      1: false,
+      2: false,
+    },
+    list: {
+      number: false,
+      bullet: false,
+    },
+    script: {
+      sub: false,
+      sup: false,
+    },
+    align: {
+      center: false,
+      right: false,
+      left: false,
+      justify: false,
+    },
+  });
+
   const modules = {
     toolbar: [
       // [{ font: [] }],
@@ -218,15 +325,15 @@ const TextEditor = ({ onChange, style, placeholder, theme }) => {
     "background",
   ];
 
-  // Toolbar Trigger
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    updateFormats();
   };
-  const showFormat = Boolean(anchorEl);
 
-  // Tools Trigger
-  const [toolbarTrigger, fireToolbarTrigger] = React.useState();
+  const showFormat = Boolean(anchorEl);
+  const id = showFormat ? "simple-popper" : undefined;
 
   return (
     <Box>
@@ -243,73 +350,14 @@ const TextEditor = ({ onChange, style, placeholder, theme }) => {
         modules={modules}
         formats={formats}
         placeholder="Compose a comment..."
-        onChangeSelection={() =>
-          fireToolbarTrigger(Math.round(Math.random() * 1000000000000))
-        }
       />
       <ToggleButton onClick={handleClick} selected={showFormat}>
         <EditIcon />
       </ToggleButton>
-      <Popper open={showFormat} anchorEl={anchorEl}>
-        <AllTools trigger={toolbarTrigger} />
+      <Popper id={id} open={showFormat} anchorEl={anchorEl}>
+        <CustomizedDividers />
       </Popper>
     </Box>
-  );
-};
-
-const AllTools = ({ trigger }) => {
-  // React.useEffect(() => {
-  //   UpdateToolbarOptions();
-  // }, []);
-
-  React.useEffect(() => {
-    UpdateToolbarOptions();
-  }, [trigger]);
-
-  const [toolFormats, setToolFormats] = React.useState(() => [
-    "bold",
-    "italic",
-  ]);
-  console.log(toolFormats);
-
-  const UpdateToolbarOptions = () => {
-    const boldSelected = document
-      .getElementsByClassName("ql-bold")[0]
-      .classList.contains("ql-active");
-
-    boldSelected
-      ? toolFormats.includes("bold")
-        ? console.log("do nothing")
-        : setToolFormats([...toolFormats, "bold"])
-      : setToolFormats([...toolFormats.filter((el) => el != "bold")]);
-  };
-
-  return (
-    <React.Fragment>
-      <ToggleButtonGroup
-        value={toolFormats}
-        onChange={(e, value) => setToolFormats(value)}
-        aria-label="text formatting"
-      >
-        <ToggleButton
-          value="bold"
-          aria-label="bold"
-          onClick={() => document.getElementsByClassName("ql-bold")[0].click()}
-        >
-          <FormatBoldIcon />
-        </ToggleButton>
-        <ToggleButton value="italic" aria-label="italic">
-          <FormatItalicIcon />
-        </ToggleButton>
-        <ToggleButton value="underlined" aria-label="underlined">
-          <FormatUnderlinedIcon />
-        </ToggleButton>
-        <ToggleButton value="color" aria-label="color" disabled>
-          <FormatColorFillIcon />
-          <ArrowDropDownIcon />
-        </ToggleButton>
-      </ToggleButtonGroup>
-    </React.Fragment>
   );
 };
 
